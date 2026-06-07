@@ -784,52 +784,51 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
 
 <!-- ══ S14 Samsung ══ -->
 <div class="slide" id="s14">
-  <div style="display:flex;flex:1;min-height:0">
-    <!-- 왼쪽 패널 -->
-    <div class="cust-l" style="width:clamp(160px,18vw,260px)">
-      <button class="back" style="position:static;margin-bottom:clamp(10px,2vh,20px);align-self:flex-start" onclick="goTo('s02')">← 목차로</button>
-      <div style="font-size:clamp(24px,3.5vw,38px);margin-bottom:10px">📱</div>
-      <div style="font-size:clamp(16px,2.2vw,24px);font-weight:800;margin-bottom:4px">Samsung</div>
-      <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.6">Jung Suh<br>VP, Digital Commerce</div>
-      <div style="margin-top:12px;font-size:clamp(10px,.9vw,11px);color:var(--muted)">무대 발표 (~1:32:20)</div>
-      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
-        <span class="kw pu" style="font-size:clamp(9px,.85vw,11px)">임원 1,000명</span>
-        <span class="kw gr" style="font-size:clamp(9px,.85vw,11px)">AX 전환</span>
-      </div>
-      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
-        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s12')">← Thomson</span>
-        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s13')">← UA</span>
-      </div>
-    </div>
-    <!-- 오른쪽: 영상 + 요약 -->
-    <div style="flex:1;display:flex;flex-direction:column;padding:clamp(16px,2.5vh,32px) clamp(16px,2.5vw,40px);overflow-y:auto;gap:clamp(10px,1.8vh,16px)">
-      <div>
-        <div class="eyebrow" style="margin-bottom:4px">고객 사례 3/3</div>
-        <div class="h2" style="font-size:clamp(16px,2.2vw,28px)">1,000명 임원이 매일 쓰는 AI</div>
-        <div class="divline" style="margin:8px 0 0"></div>
-      </div>
-      <!-- YouTube 영상 -->
-      <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border);flex-shrink:0">
-        <iframe
-          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"
-          src="https://www.youtube.com/embed/NFTdHYp9uJo?start=4770&rel=0&modestbranding=1"
-          title="Samsung — Snowflake Summit 2026 Platform Keynote"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <!-- 핵심 포인트 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.2vw,14px)">
-        <div class="ibox" style="padding:clamp(10px,1.5vh,16px)">
-          <div class="ibox-t">핵심 성과</div>
-          <ul class="blist">
-            <li><strong>SIA 에이전트</strong>: Galaxy S26 출시 때 실제 운영, 수 시간 → <strong>수 초</strong></li>
-            <li>임원·영업 <strong>1,000명</strong> 매일 사용 — 데이터 과학자 0명</li>
-          </ul>
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s02')">← 목차로</button>
+    <div class="eyebrow">고객 사례 3/3 · Samsung Electronics</div>
+    <div class="h2">1,000명 임원이 매일 쓰는 AI</div>
+    <div class="divline"></div>
+    <div class="g2">
+      <!-- 왼쪽: 불릿 + 인용 -->
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+          <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/samsung_logo.svg" alt="Samsung" style="height:28px;opacity:.85">
+          <div>
+            <div style="font-size:clamp(11px,1.1vw,13px);font-weight:700">Jung Suh</div>
+            <div style="font-size:clamp(10px,.9vw,11px);color:var(--muted)">VP, Digital Commerce · 무대 발표 (~1:19:30)</div>
+          </div>
         </div>
-        <div class="quote" style="margin:0;font-size:clamp(11px,1.1vw,13px)">
-          "데이터팀 병목 해소 → 모든 리더가 자신만의 분석가로서 AX 모델에서 운영되는 전환."
-          <cite>— Jung Suh, Samsung VP Digital Commerce</cite>
+        <ul class="blist">
+          <li><strong>SIA (Shopper's Insight Action Agent)</strong>: Galaxy S26 출시 기간 실제 운영. 팀 워크플로우 수 시간 → <strong>수 초</strong></li>
+          <li><strong>AX (AI 기반 프로세스 전환)</strong>: AI가 프로세스 중심에서 신호 지속 모니터링 → 액션 자동 제안·라우팅</li>
+          <li>임원·영업·마케팅 직원 <strong>1,000명</strong>이 매일 에이전트 활용</li>
+          <li>이 중 <strong>데이터 과학자는 단 한 명도 없음</strong></li>
+          <li><span class="kw pu" onclick="goTo('s11')">Cortex Sense ↗</span>가 핵심 정확도 엔진 역할</li>
+          <li>데이터팀 병목 해소 → <strong>모든 리더가 자신만의 분석가</strong>로 운영</li>
+        </ul>
+        <div class="quote">
+          "데이터팀이 병목에서 벗어나 모든 리더가 자신만의 분석가로서 AX 모델에서 운영되는 전환 — 그것이 우리가 Snowflake에서 찾던 변화입니다."
+          <cite>— Jung Suh, Samsung Electronics VP Digital Commerce</cite>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="kw" onclick="goTo('s12')">← Thomson</span>
+          <span class="kw" onclick="goTo('s13')">← UA</span>
+        </div>
+      </div>
+      <!-- 오른쪽: 영상 -->
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div class="ibox" style="flex:1;display:flex;flex-direction:column;gap:10px">
+          <div class="ibox-t">🎬 Samsung 발표 영상 (1:19:30~)</div>
+          <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:8px;overflow:hidden;background:#000;flex-shrink:0">
+            <iframe
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"
+              src="https://www.youtube.com/embed/NFTdHYp9uJo?start=4770&rel=0&modestbranding=1"
+              title="Samsung — Snowflake Summit 2026 Platform Keynote"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
     </div>
