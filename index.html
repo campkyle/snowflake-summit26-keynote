@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Snowflake Summit 2026 · 플랫폼 키노트 덱</title>
+<style>
+:root{
+  --bg:#08101e;
+  --blue:#29b5e8;
+  --purple:#818cf8;
+  --green:#34d399;
+  --yellow:#fbbf24;
+  --red:#f87171;
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+  --card:#0f1e33;
+  --border:#1e3450;
+  --nav:48px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif}
+
+/* ── SLIDE SHELL ── */
+#deck{position:fixed;top:0;left:0;right:0;bottom:var(--nav);overflow:hidden}
+.slide{
+  position:absolute;inset:0;
+  display:none;flex-direction:column;
+  background:var(--bg);color:var(--text);
+  overflow-y:auto;overflow-x:hidden;
+}
+.slide.active{display:flex}
+
+/* transitions */
+.slide.er{animation:er .3s cubic-bezier(.4,0,.2,1) both}
+.slide.el{animation:el .3s cubic-bezier(.4,0,.2,1) both}
+.slide.xl{animation:xl .3s cubic-bezier(.4,0,.2,1) both}
+.slide.xr{animation:xr .3s cubic-bezier(.4,0,.2,1) both}
+@keyframes er{from{transform:translateX(100%);opacity:0}to{transform:none;opacity:1}}
+@keyframes el{from{transform:translateX(-100%);opacity:0}to{transform:none;opacity:1}}
+@keyframes xl{from{transform:none;opacity:1}to{transform:translateX(-100%);opacity:0}}
+@keyframes xr{from{transform:none;opacity:1}to{transform:translateX(100%);opacity:0}}
+
+/* ── NAVBAR ── */
+#navbar{
+  position:fixed;bottom:0;left:0;right:0;height:var(--nav);
+  background:rgba(8,16,30,.95);backdrop-filter:blur(16px);
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(12px,3vw,32px);z-index:9999;
+}
+.nbtn{background:none;border:1px solid var(--border);color:var(--muted);
+  padding:5px clamp(12px,2vw,22px);border-radius:6px;cursor:pointer;
+  font-size:clamp(11px,1.2vw,13px);transition:all .15s}
+.nbtn:hover{border-color:var(--blue);color:var(--blue)}
+.nbtn.purple:hover{border-color:var(--purple);color:var(--purple)}
+#ctr{font-size:clamp(11px,1.2vw,13px);color:var(--muted)}
+#prog{position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+  transition:width .3s ease;z-index:9999}
+
+/* ── SHARED LAYOUT HELPERS ── */
+.pad{padding:clamp(28px,4vh,56px) clamp(24px,5vw,80px)}
+.eyebrow{font-size:clamp(10px,1vw,12px);letter-spacing:.18em;color:var(--blue);
+  font-weight:700;text-transform:uppercase;margin-bottom:.6em}
+.eyebrow.pu{color:var(--purple)}
+.h1{font-size:clamp(26px,4vw,52px);font-weight:900;line-height:1.15;
+  background:linear-gradient(130deg,#fff 35%,var(--blue) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.h2{font-size:clamp(20px,2.8vw,38px);font-weight:800;line-height:1.2;margin-bottom:.3em}
+.sub{font-size:clamp(13px,1.4vw,16px);color:var(--muted);line-height:1.6;margin-bottom:clamp(16px,2.5vh,32px)}
+.divline{width:48px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--blue),var(--purple));margin:clamp(8px,1.5vh,14px) 0 clamp(14px,2.5vh,24px)}
+
+/* cards, bullets, etc */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:clamp(16px,2vh,24px) clamp(16px,2vw,24px)}
+.card:hover{border-color:var(--blue)}
+.card.pu:hover{border-color:var(--purple)}
+
+.blist{list-style:none}
+.blist li{padding:clamp(7px,1vh,11px) 0 clamp(7px,1vh,11px) clamp(16px,2vw,22px);
+  position:relative;border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:clamp(12px,1.3vw,14.5px);color:#cbd5e1;line-height:1.65}
+.blist li:last-child{border-bottom:none}
+.blist li::before{content:'▸';position:absolute;left:0;color:var(--blue);font-size:10px;top:clamp(9px,1.2vh,13px)}
+.blist li strong{color:var(--text)}
+
+.stat-row{display:flex;gap:clamp(10px,2vw,18px);flex-wrap:wrap;margin-bottom:clamp(12px,2vh,20px)}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:clamp(12px,1.5vh,18px) clamp(14px,1.8vw,22px);text-align:center;flex:1;min-width:80px}
+.stat-n{font-size:clamp(24px,3.5vw,42px);font-weight:900;color:var(--blue);line-height:1}
+.stat-n.pu{color:var(--purple)} .stat-n.gr{color:var(--green)}
+.stat-l{font-size:clamp(10px,.9vw,12px);color:var(--muted);margin-top:3px}
+
+.quote{background:rgba(41,181,232,.07);border-left:3px solid var(--blue);
+  border-radius:0 10px 10px 0;padding:clamp(12px,1.8vh,18px) clamp(14px,2vw,22px);
+  font-style:italic;font-size:clamp(12px,1.3vw,15px);color:#e2e8f0;line-height:1.7;margin-top:auto}
+.quote cite{display:block;font-size:clamp(10px,.9vw,12px);color:var(--muted);margin-top:6px;font-style:normal}
+
+.ibox{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:clamp(14px,1.8vh,20px)}
+.ibox-t{font-size:clamp(10px,.9vw,12px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:clamp(8px,1.2vh,12px)}
+.ibox-t.pu{color:var(--purple)}
+
+.dsteps{counter-reset:d;list-style:none}
+.dsteps li{counter-increment:d;padding:clamp(6px,.8vh,9px) 0 clamp(6px,.8vh,9px) clamp(26px,3vw,34px);
+  position:relative;font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.55;
+  border-bottom:1px solid rgba(255,255,255,.04)}
+.dsteps li:last-child{border-bottom:none}
+.dsteps li::before{content:counter(d);position:absolute;left:0;top:clamp(6px,.8vh,9px);
+  width:clamp(18px,1.8vw,22px);height:clamp(18px,1.8vw,22px);border-radius:50%;
+  background:rgba(41,181,232,.18);color:var(--blue);font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;line-height:1}
+
+.pill{display:inline-block;padding:3px 10px;border-radius:4px;font-size:clamp(10px,.9vw,12px);font-weight:700;margin:3px}
+.pill.bl{background:rgba(41,181,232,.1);border:1px solid rgba(41,181,232,.25);color:var(--blue)}
+.pill.gr{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.25);color:var(--green)}
+.pill.yl{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:var(--yellow)}
+.pill.pu{background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.25);color:var(--purple)}
+
+/* ── 영상 썸네일 ── */
+.vid-thumb{position:relative;cursor:pointer;border-radius:8px;overflow:hidden;background:#000;flex-shrink:0}
+.vid-thumb img{width:100%;display:block;transition:transform .3s}
+.vid-thumb:hover img{transform:scale(1.03)}
+.vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.38);transition:background .2s}
+.vid-thumb:hover .vid-play{background:rgba(0,0,0,.22)}
+.vid-play-btn{width:clamp(40px,5vw,60px);height:clamp(40px,5vw,60px);border-radius:50%;
+  background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
+  font-size:clamp(16px,2vw,24px);color:#08101e;padding-left:3px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.vid-label{position:absolute;bottom:8px;left:10px;
+  background:rgba(8,16,30,.82);color:var(--blue);font-size:clamp(9px,.85vw,11px);
+  font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.06em}
+
+/* ── 슬라이드 내 스크린샷 이미지 ── */
+.slide-img{width:100%;border-radius:10px;object-fit:cover;
+  border:1px solid var(--border);display:block;max-height:clamp(120px,22vh,240px)}
+.cust-photo{width:100%;border-radius:10px;object-fit:cover;
+  border:1px solid var(--border);display:block;margin-bottom:12px;
+  max-height:clamp(100px,18vh,180px)}
+
+/* keyword jump links */
+.kw{display:inline-block;background:rgba(41,181,232,.1);border:1px solid rgba(41,181,232,.3);
+  color:var(--blue);padding:2px 9px;border-radius:4px;
+  font-size:clamp(10px,.9vw,12px);font-weight:700;cursor:pointer;transition:all .15s}
+.kw:hover{background:rgba(41,181,232,.22)}
+.kw.pu{background:rgba(129,140,248,.1);border-color:rgba(129,140,248,.3);color:var(--purple)}
+.kw.pu:hover{background:rgba(129,140,248,.22)}
+.kw.gr{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3);color:var(--green)}
+
+/* back btn */
+.back{position:absolute;top:clamp(14px,2vh,22px);right:clamp(14px,2vw,28px);
+  background:rgba(41,181,232,.1);border:1px solid rgba(41,181,232,.25);
+  color:var(--blue);padding:5px 14px;border-radius:6px;cursor:pointer;
+  font-size:clamp(10px,.9vw,12px);font-weight:600;transition:all .15s;z-index:10}
+.back:hover{background:rgba(41,181,232,.22)}
+
+/* chip */
+.chip{background:rgba(41,181,232,.12);border:1px solid rgba(41,181,232,.25);
+  color:var(--blue);padding:5px 16px;border-radius:999px;font-size:clamp(11px,1.1vw,13px);font-weight:600}
+.chip.pu{background:rgba(129,140,248,.12);border-color:rgba(129,140,248,.25);color:var(--purple)}
+
+/* 2-col grid */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,36px);flex:1;min-height:0}
+@media(max-width:860px){.g2{grid-template-columns:1fr}}
+
+/* action grid */
+.ag{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.5vw,16px);flex:1;min-height:0}
+@media(max-width:960px){.ag{grid-template-columns:repeat(2,1fr)}}
+
+/* acts grid */
+.acts4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.5vw,16px);flex:1;min-height:0}
+@media(max-width:960px){.acts4{grid-template-columns:repeat(2,1fr)}}
+
+/* agenda grid */
+.agg{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.5vw,16px);flex:1;min-height:0}
+@media(max-width:760px){.agg{grid-template-columns:1fr}}
+
+/* accuracy */
+.acc-wrap{display:flex;align-items:center;gap:clamp(16px,3vw,36px);
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:clamp(16px,2.5vh,28px) clamp(20px,3vw,36px);margin-bottom:clamp(12px,1.8vh,20px)}
+.acc-n{font-size:clamp(42px,7vw,72px);font-weight:900;line-height:1}
+.acc-l{font-size:clamp(11px,1vw,13px);color:var(--muted);margin-top:4px}
+
+/* customer split */
+.cust-wrap{display:flex;flex:1;min-height:0}
+.cust-l{width:clamp(200px,22vw,320px);flex-shrink:0;
+  background:linear-gradient(160deg,#0a1e38,#06101e);border-right:1px solid var(--border);
+  padding:clamp(24px,4vh,52px) clamp(20px,3vw,44px);display:flex;flex-direction:column;justify-content:center}
+.cust-r{flex:1;padding:clamp(24px,4vh,52px) clamp(24px,4vw,60px);
+  display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
+@media(max-width:700px){.cust-wrap{flex-direction:column}.cust-l{width:100%;border-right:none;border-bottom:1px solid var(--border)}}
+
+/* rename split */
+.split-wrap{display:flex;flex:1;min-height:0}
+.split-l{flex:1;padding:clamp(32px,5vh,64px) clamp(28px,5vw,72px);display:flex;flex-direction:column;justify-content:center}
+.split-r{flex:1;background:linear-gradient(160deg,#0a1e38,#06101e);border-left:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(24px,4vh,48px)}
+@media(max-width:700px){.split-wrap{flex-direction:column}.split-r{border-left:none;border-top:1px solid var(--border)}}
+
+.rp-box{background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:clamp(14px,2vh,20px) clamp(24px,3vw,40px);text-align:center;width:clamp(200px,24vw,320px)}
+.rp-from{font-size:clamp(10px,.9vw,12px);color:var(--muted);margin-bottom:5px}
+.rp-old{font-size:clamp(14px,1.6vw,19px);font-weight:600;color:var(--muted);text-decoration:line-through}
+.rp-new{font-size:clamp(16px,2vw,23px);font-weight:800}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<div id="deck">
+
+<!-- ══ S01 TITLE ══ -->
+<div class="slide active" id="s01">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column;justify-content:center;
+    background:radial-gradient(ellipse at 65% 40%,#0d2550 0%,var(--bg) 65%);position:relative">
+    <div style="position:absolute;right:clamp(32px,6vw,100px);top:50%;transform:translateY(-50%);
+      font-size:clamp(100px,18vw,240px);font-weight:900;color:rgba(41,181,232,.04);line-height:1;pointer-events:none">26</div>
+    <div style="max-width:min(680px,75%)">
+      <div class="eyebrow">Snowflake Summit 2026 · Day 2 · Platform Keynote</div>
+      <div class="h1" style="margin-bottom:.2em">플랫폼<br>키노트 요약</div>
+      <div style="font-size:clamp(14px,1.8vw,22px);color:var(--muted);margin-bottom:clamp(24px,4vh,44px)">한국어 발표 자료 · 2026년 6월</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:clamp(20px,3vh,36px)">
+        <span class="chip">4막 구조</span>
+        <span class="chip">30+ 제품 발표</span>
+        <span class="chip">90분</span>
+        <span class="chip pu">YouTube 원본 영상</span>
+      </div>
+      <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.7">
+        발표자: Benoit Dageville · Christian Kleinerman · Dash Desai<br>
+        게스트: Thomson Reuters · Under Armour · Samsung Electronics
+      </div>
+      <div style="margin-top:clamp(20px,3vh,32px);font-size:clamp(10px,.9vw,12px);color:rgba(41,181,232,.55)">
+        ← → 키보드 방향키 또는 하단 버튼으로 이동 · 파란 키워드 클릭 시 해당 상세 슬라이드로 바로 이동
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S02 AGENDA ══ -->
+<div class="slide" id="s02">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <div class="eyebrow">AGENDA</div>
+    <div class="h2">오늘의 주요 내용</div>
+    <div class="sub" style="margin-bottom:clamp(12px,2vh,20px)">카드를 클릭하면 해당 섹션으로 바로 이동합니다</div>
+    <div class="agg">
+      <div class="card" style="cursor:pointer;transition:all .2s" onclick="goTo('s04')">
+        <div style="font-size:clamp(22px,3vw,32px);margin-bottom:8px">🎭</div>
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">ACT 1–4</div>
+        <div style="font-size:clamp(14px,1.6vw,18px);font-weight:700;margin-bottom:6px">4막 구조 전체 개요</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.5">사용 편의성·신뢰·개방성·CoWork<br>30개 이상 제품 발표의 전체 흐름</div>
+        <div style="margin-top:10px;font-size:clamp(10px,.9vw,12px);color:var(--blue);font-weight:700">자세히 보기 →</div>
+      </div>
+      <div class="card" style="cursor:pointer;transition:all .2s" onclick="goTo('s05')">
+        <div style="font-size:clamp(22px,3vw,32px);margin-bottom:8px">💻</div>
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">ACT 1</div>
+        <div style="font-size:clamp(14px,1.6vw,18px);font-weight:700;margin-bottom:6px">Snowflake CoCo</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.5">CoCo Desktop GA · Cloud Agents<br>Snap and Ask · Data Stream</div>
+        <div style="margin-top:10px;font-size:clamp(10px,.9vw,12px);color:var(--blue);font-weight:700">자세히 보기 →</div>
+      </div>
+      <div class="card" style="cursor:pointer;transition:all .2s" onclick="goTo('s07')">
+        <div style="font-size:clamp(22px,3vw,32px);margin-bottom:8px">🛡️</div>
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">ACT 2</div>
+        <div style="font-size:clamp(14px,1.6vw,18px);font-weight:700;margin-bottom:6px">거버넌스 &amp; 신뢰</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.5">Agent Identity · Horizon Context<br>Interactive Compiler · AI 보안</div>
+        <div style="margin-top:10px;font-size:clamp(10px,.9vw,12px);color:var(--blue);font-weight:700">자세히 보기 →</div>
+      </div>
+      <div class="card" style="cursor:pointer;transition:all .2s" onclick="goTo('s09')">
+        <div style="font-size:clamp(22px,3vw,32px);margin-bottom:8px">🌐</div>
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">ACT 3</div>
+        <div style="font-size:clamp(14px,1.6vw,18px);font-weight:700;margin-bottom:6px">개방성 &amp; 상호운용성</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.5">Iceberg V3 GA · SAP/Workday 제로카피<br>Open Sharing · Multi-party Collab</div>
+        <div style="margin-top:10px;font-size:clamp(10px,.9vw,12px);color:var(--blue);font-weight:700">자세히 보기 →</div>
+      </div>
+      <div class="card pu" style="cursor:pointer;transition:all .2s" onclick="goTo('s10')">
+        <div style="font-size:clamp(22px,3vw,32px);margin-bottom:8px">🤖</div>
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">ACT 4</div>
+        <div style="font-size:clamp(14px,1.6vw,18px);font-weight:700;margin-bottom:6px">Snowflake CoWork</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.5">Personal Work Engine · Cortex Sense<br>정확도 24% → 83% · Natoma 인수</div>
+        <div style="margin-top:10px;font-size:clamp(10px,.9vw,12px);color:var(--purple);font-weight:700">자세히 보기 →</div>
+      </div>
+      <div class="card" style="cursor:pointer;transition:all .2s" onclick="goTo('s12')">
+        <div style="font-size:clamp(22px,3vw,32px);margin-bottom:8px">🏢</div>
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">고객 사례</div>
+        <div style="font-size:clamp(14px,1.6vw,18px);font-weight:700;margin-bottom:6px">Thomson · UA · Samsung</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.5">실제 운영 환경 AI 활용 사례<br>각 회사별 인사이트 및 인용구</div>
+        <div style="margin-top:10px;font-size:clamp(10px,.9vw,12px);color:var(--blue);font-weight:700">자세히 보기 →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S03 RENAME ══ -->
+<div class="slide" id="s03">
+  <button class="back" onclick="goTo('s02')">← 목차로</button>
+  <div class="split-wrap">
+    <div class="split-l">
+      <div class="eyebrow">MAJOR ANNOUNCEMENT</div>
+      <div class="h2">공식 제품명 변경</div>
+      <div class="divline"></div>
+      <div class="sub">Summit 2026에서 공식 발표된 리브랜딩.<br>관중의 가장 강렬한 반응을 이끌어낸 순간.</div>
+      <ul class="blist">
+        <li><strong>"여기서부터는 Cortex Code라고 부르지 않습니다."</strong><br>Christian Kleinerman의 선언 이후 관중 환호</li>
+        <li>두 제품 모두 기능 확장과 함께 리브랜딩 — 단순 이름 변경이 아닌 포지셔닝 재정의</li>
+        <li>CoWork: 모든 직원의 <strong>개인 AI 업무 엔진</strong></li>
+        <li>CoCo: 개발자를 위한 <strong>AI 코딩 에이전트</strong></li>
+      </ul>
+      <div class="quote" style="margin-top:clamp(16px,2.5vh,28px)">
+        "Snowflake Intelligence의 범위는 우리가 시작했을 때보다 훨씬 넓어졌습니다. 업무 방식 자체를 바꾸고 있습니다."
+        <cite>— Christian Kleinerman, EVP of Product</cite>
+      </div>
+    </div>
+    <div class="split-r">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.5vh,18px);width:100%">
+        <div class="rp-box"><div class="rp-from">기존 이름</div><div class="rp-old">Cortex Code</div></div>
+        <div style="font-size:clamp(20px,3vw,32px);color:var(--blue)">↓</div>
+        <div class="rp-box" style="border-color:rgba(41,181,232,.45)">
+          <div class="rp-from">새 이름</div>
+          <div class="rp-new" style="color:var(--blue)">Snowflake CoCo</div>
+        </div>
+        <div style="height:clamp(10px,2vh,24px)"></div>
+        <div class="rp-box"><div class="rp-from">기존 이름</div><div class="rp-old">Snowflake Intelligence</div></div>
+        <div style="font-size:clamp(20px,3vw,32px);color:var(--purple)">↓</div>
+        <div class="rp-box" style="border-color:rgba(129,140,248,.45)">
+          <div class="rp-from">새 이름</div>
+          <div class="rp-new" style="color:var(--purple)">Snowflake CoWork</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S04 4-ACT OVERVIEW ══ -->
+<div class="slide" id="s04">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s02')">← 목차로</button>
+    <div class="eyebrow">OVERVIEW</div>
+    <div class="h2">4막 구조 — 전체 발표 흐름</div>
+    <div class="sub">각 카드를 클릭하면 해당 Act 상세 슬라이드로 이동합니다</div>
+    <div class="acts4">
+      <div class="card" style="cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:8px" onclick="goTo('s05')">
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">ACT 1</div>
+        <div style="font-size:clamp(22px,2.8vw,32px)">💻</div>
+        <div style="font-size:clamp(13px,1.4vw,16px);font-weight:700;color:var(--blue)">사용 편의성</div>
+        <ul style="list-style:none;flex:1">
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">CoCo Desktop GA</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Cloud Agents</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Snap and Ask</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Data Stream PP</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0">App Runtime · Streamlit</li>
+        </ul>
+        <div style="font-size:clamp(10px,.9vw,11px);color:var(--blue);font-weight:700">클릭하여 상세 보기 →</div>
+      </div>
+      <div class="card" style="cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:8px" onclick="goTo('s07')">
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">ACT 2</div>
+        <div style="font-size:clamp(22px,2.8vw,32px)">🛡️</div>
+        <div style="font-size:clamp(13px,1.4vw,16px);font-weight:700;color:var(--blue)">신뢰 &amp; 거버넌스</div>
+        <ul style="list-style:none;flex:1">
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">의도 기반 거버넌스</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Agent Identity</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Data Movement Policy</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Horizon Context NEW</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0">Interactive Compiler 40×</li>
+        </ul>
+        <div style="font-size:clamp(10px,.9vw,11px);color:var(--blue);font-weight:700">클릭하여 상세 보기 →</div>
+      </div>
+      <div class="card" style="cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:8px" onclick="goTo('s09')">
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">ACT 3</div>
+        <div style="font-size:clamp(22px,2.8vw,32px)">🌐</div>
+        <div style="font-size:clamp(13px,1.4vw,16px);font-weight:700;color:var(--blue)">개방성 &amp; 상호운용</div>
+        <ul style="list-style:none;flex:1">
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Iceberg V3 GA</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">SAP 제로카피 GA</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Open Sharing</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Multi-party Collab GA</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0">Workday / IBM / AVEVA</li>
+        </ul>
+        <div style="font-size:clamp(10px,.9vw,11px);color:var(--blue);font-weight:700">클릭하여 상세 보기 →</div>
+      </div>
+      <div class="card pu" style="cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:8px" onclick="goTo('s10')">
+        <div style="font-size:clamp(10px,.9vw,11px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">ACT 4</div>
+        <div style="font-size:clamp(22px,2.8vw,32px)">🤖</div>
+        <div style="font-size:clamp(13px,1.4vw,16px);font-weight:700;color:var(--purple)">모두를 위한 CoWork</div>
+        <ul style="list-style:none;flex:1">
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Personal Work Engine</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">User Memory</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">Cortex Sense NEW</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04)">차세대 Artifacts</li>
+          <li style="font-size:clamp(10px,.95vw,12px);color:var(--muted);padding:3px 0">Natoma 인수</li>
+        </ul>
+        <div style="font-size:clamp(10px,.9vw,11px);color:var(--purple);font-weight:700">클릭하여 상세 보기 →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S05 CoCo ══ -->
+<div class="slide" id="s05">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s04')">← 4막 개요</button>
+    <div class="eyebrow">ACT 1 · 사용 편의성</div>
+    <div class="h2">Snowflake CoCo — AI 코딩 에이전트</div>
+    <div class="divline"></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,18px)">
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-n">GA</div><div class="stat-l">CoCo Desktop 출시</div></div>
+          <div class="stat-card"><div class="stat-n pu">5×</div><div class="stat-l">Spark→SF 성능</div></div>
+          <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">Desktop/Snowsight/CLI</div></div>
+        </div>
+        <ul class="blist">
+          <li><strong>CoCo Desktop GA</strong>: Plan → Build → Deploy 하나의 흐름. CLI 수준 파워를 UI에서</li>
+          <li><strong>Cloud Agents (nearly GA)</strong>: Snowsight·CLI 샌드박스 추가, 예약 실행, Async API</li>
+          <li><span class="kw" onclick="goTo('s06')">Snap and Ask ↗</span> — 화면 캡처 후 자연어로 질문, 시각적 컨텍스트 완전 이해</li>
+          <li><strong>Snowflake Data Stream (PP예정)</strong>: Kafka Wire 호환, 완전 관리형, 밀리초 미만 지연</li>
+          <li><strong>AIM 마이그레이션</strong>: Teradata SQL을 Snowflake에서 그대로 실행, Spark RDD 5배 성능</li>
+          <li><strong>Snowflake App Runtime (PP)</strong>: Node.js/React 앱을 Snowflake 내에서 호스팅</li>
+        </ul>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="kw" onclick="goTo('s07')">거버넌스 연결 →</span>
+          <span class="kw pu" onclick="goTo('s10')">CoWork 보기 →</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div class="ibox">
+          <div class="ibox-t">🎬 Demo 1: Snow Music (44:08~, 약 6분)</div>
+          <div class="vid-thumb" data-start="2648" style="margin-bottom:10px">
+            <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="CoCo Desktop Demo">
+            <div class="vid-play"><div class="vid-play-btn">▶</div></div>
+            <div class="vid-label">▶ 44:08~ 재생</div>
+          </div>
+          <ol class="dsteps">
+            <li>CoCo Desktop이 스트리밍 앱 파이프라인 장애를 자연어로 진단 (누락된 device_type 컬럼)</li>
+            <li>데이터 소스: Data Stream + Iceberg 테이블 + Salesforce 제로카피 커넥터</li>
+            <li>파괴적 명령은 사용자 승인 필수 — AI가 단독으로 행동하지 않음</li>
+            <li>인게이지먼트 차트 캡처 후 "왜 이게 떨어졌나요?" → 상세 답변</li>
+          </ol>
+        </div>
+        <div class="quote">
+          "우리는 마찰 제거 사업을 하고 있습니다."
+          <cite>— Christian Kleinerman, EVP of Product</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S06 Snap and Ask ══ -->
+<div class="slide" id="s06">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s05')">← CoCo로</button>
+    <div class="eyebrow">CoCo 기능 상세</div>
+    <div class="h2">Snap and Ask</div>
+    <div class="divline"></div>
+    <div class="g2">
+      <ul class="blist" style="flex:1">
+        <li>화면의 <strong>어느 영역이든</strong> 캡처하여 CoCo에게 자연어로 질문</li>
+        <li>차트, 대시보드, 오류 메시지, 코드 스크린샷 등 모두 지원</li>
+        <li>CoCo가 <strong>시각적 컨텍스트를 완전히 이해</strong>하고 분석 결과 제공</li>
+        <li>"이 차트에서 왜 인게이지먼트가 떨어졌나요?" — 자연어 질문</li>
+        <li>데이터 소스를 자동 추적하여 <strong>원인 분석까지</strong> 수행</li>
+        <li>개발자·분석가 모두 사용 가능, 코드 없이도 인사이트 도출</li>
+      </ul>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div class="ibox">
+          <div class="ibox-t">사용 시나리오</div>
+          <ol class="dsteps">
+            <li>Snowsight 대시보드에서 이상한 차트 발견</li>
+            <li>Snap and Ask로 해당 영역 캡처</li>
+            <li>"왜 지난주에 비해 30% 하락했나요?" 질문</li>
+            <li>CoCo가 관련 테이블·파이프라인을 조사해 원인 제시</li>
+          </ol>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="kw" onclick="goTo('s05')">← CoCo 전체 기능</span>
+          <span class="kw gr" onclick="goTo('s04')">← 4막 개요</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S07 거버넌스 ══ -->
+<div class="slide" id="s07">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s04')">← 4막 개요</button>
+    <div class="eyebrow">ACT 2 · 신뢰</div>
+    <div class="h2">거버넌스 &amp; 보안 — 신뢰가 가속 장치</div>
+    <div class="divline"></div>
+    <div class="g2">
+      <ul class="blist">
+        <li><strong>의도 기반 거버넌스</strong>: "모든 PII를 보호해줘" → 자동 분류·정책 생성 (CoCo 기반)</li>
+        <li><span class="kw" onclick="goTo('s08')">Agent Identity ↗</span> — 에이전트 실행 컨텍스트 감지, 마스킹 정책에서 참조</li>
+        <li><strong>Data Movement Policies</strong>: 태그된 데이터의 외부 전송·다운로드 시스템 레벨 차단</li>
+        <li><strong>Multi-party Approvals (PP)</strong>: 고위험 작업은 2인 승인 필수</li>
+        <li><span class="kw" onclick="goTo('s08')">Horizon Context (NEW) ↗</span> — 에이전트에 시맨틱 신호 자동 제공</li>
+        <li><strong>Interactive Compiler</strong>: 40배 빠른 컴파일 → 3~4배 워크로드 가속</li>
+        <li><strong>Adaptive Compute GA</strong>: 1세대 대비 약 2배 성능</li>
+        <li><strong>AI 비용 거버넌스</strong>: AI 사용량을 Budget에 통합, 사용자별 쿼터</li>
+      </ul>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div class="ibox">
+          <div class="ibox-t">🎬 Demo 2: 거버넌스 (1:09:13~, 약 5분)</div>
+          <div class="vid-thumb" data-start="4153" style="margin-bottom:10px">
+            <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/05_caitlin_thomson_reuters.jpg" alt="Governance Demo">
+            <div class="vid-play"><div class="vid-play-btn">▶</div></div>
+            <div class="vid-label">▶ 1:09:13~ 재생</div>
+          </div>
+          <ol class="dsteps">
+            <li>CoWork로 VIP 연락처 요청 → 마스킹 정책 실행, 값 숨겨짐</li>
+            <li>외부 스테이지로 데이터 내보내기 → Data Movement Policy 차단 (실제 실패 시연)</li>
+            <li>Trust Center: AI 가드레일·데이터 보안·DMP 위반 통합 뷰</li>
+          </ol>
+        </div>
+        <div class="quote">
+          "거버넌스는 제약이 아닌 가속 장치입니다."
+          <cite>— Caitlin Hugerty, Thomson Reuters VP of AI &amp; Data</cite>
+        </div>
+        <span class="kw" onclick="goTo('s12')">Thomson Reuters 사례 보기 →</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S08 Agent Identity ══ -->
+<div class="slide" id="s08">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s07')">← 거버넌스로</button>
+    <div class="eyebrow">ACT 2 · 상세</div>
+    <div class="h2">Agent Identity &amp; Horizon Context</div>
+    <div class="divline"></div>
+    <div class="g2">
+      <div>
+        <div style="font-size:clamp(12px,1.2vw,14px);font-weight:700;color:var(--blue);margin-bottom:clamp(8px,1.2vh,12px)">🔐 Agent Identity</div>
+        <ul class="blist" style="margin-bottom:clamp(16px,2.5vh,24px)">
+          <li>에이전트 실행 컨텍스트를 감지하는 <strong>새로운 컨텍스트 함수</strong></li>
+          <li>마스킹 정책 및 행 접근 정책에서 직접 참조 가능</li>
+          <li>에이전트 유형별로 다른 <strong>데이터 접근 권한</strong> 설정</li>
+          <li>"전통적 보안 모델은 인간 사용자를 위해 설계되었습니다. 에이전트는 다릅니다."</li>
+        </ul>
+        <div style="font-size:clamp(12px,1.2vw,14px);font-weight:700;color:var(--purple);margin-bottom:clamp(8px,1.2vh,12px)">🧠 Horizon Context (NEW)</div>
+        <ul class="blist">
+          <li>CoCo·CoWork·Cortex 에이전트에 <strong>시맨틱 신호를 자동으로 제공</strong></li>
+          <li>Semantic Views와 외부 메타데이터 커넥터 통합</li>
+          <li>에이전트가 비즈니스 컨텍스트를 이해하고 더 정확한 답변 제공</li>
+          <li><span class="kw pu" onclick="goTo('s11')">Cortex Sense와 연계 ↗</span> — 정확도 24% → 83%</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div class="ibox" style="border-color:rgba(129,140,248,.25)">
+          <div class="ibox-t pu">Horizon AI Guardrails</div>
+          <ul class="blist">
+            <li>CoCo/CoWork를 <strong>탈옥 시도</strong>로부터 런타임에서 보호</li>
+            <li><strong>프롬프트 인젝션</strong> 공격 방어 (기존 + 제로데이)</li>
+          </ul>
+        </div>
+        <div class="ibox">
+          <div class="ibox-t">Interactive Compiler</div>
+          <ul class="blist">
+            <li>새로운 쿼리 컴파일러 도입 — 컴파일 속도 <strong>40배</strong> 향상</li>
+            <li>전체 워크로드 <strong>3~4배 가속</strong></li>
+          </ul>
+        </div>
+        <span class="kw" onclick="goTo('s07')">← 거버넌스 전체 보기</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S09 개방성 ══ -->
+<div class="slide" id="s09">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s04')">← 4막 개요</button>
+    <div class="eyebrow">ACT 3 · 개방성</div>
+    <div class="h2">개방성 &amp; 상호운용성 — 사일로 없는 세계</div>
+    <div class="divline"></div>
+    <div class="g2">
+      <ul class="blist">
+        <li><strong>Apache Iceberg V3 GA</strong>: 가장 광범위한 구현. V4 스펙 개발 참여. 완전한 양방향 카탈로그 상호운용</li>
+        <li><strong>Snowflake Managed Iceberg Storage GA</strong>: AWS + Azure GA (GCP 예정). 벤더 종속 없음</li>
+        <li><strong>SAP 제로카피 통합 GA</strong>: 가장 많이 요청된 파트너 통합</li>
+        <li><strong>Workday Data Cloud · IBM Watsonx · AVEVA Connect</strong> 추가 제로카피</li>
+        <li><strong>Open Sharing (PP)</strong>: Iceberg REST로 비Snowflake 사용자와 데이터 공유</li>
+        <li><strong>Multi-party Collaboration GA</strong>: 여러 조직이 하나의 안전한 환경에서 협업. Netflix 얼리 어답터</li>
+        <li><strong>Data Re-sharing GA</strong>: 수신한 데이터를 제3자에게 자유롭게 재공유</li>
+        <li><strong>Open Semantic Interchange</strong>: Snowflake 창립, 시맨틱 레이어 개방형 표준화</li>
+      </ul>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/12_christian_act3_b.jpg" alt="Open & Interoperable" class="slide-img">
+        <div class="ibox">
+          <div class="ibox-t">제로카피 파트너 확장</div>
+          <div style="margin-top:6px">
+            <span class="pill gr">SAP GA</span>
+            <span class="pill yl">Workday NEW</span>
+            <span class="pill bl">IBM Watsonx NEW</span>
+            <span class="pill pu">AVEVA NEW</span>
+            <span class="pill gr">Salesforce</span>
+          </div>
+          <div style="margin-top:10px;font-size:clamp(11px,1vw,13px);color:var(--muted);line-height:1.6">
+            데이터 이동 없이 애플리케이션 데이터를 직접 쿼리.<br>SAP는 현재 GA, 나머지는 Preview.
+          </div>
+        </div>
+        <div class="quote">
+          "Snowflake로는 아무도 종속감을 느끼지 않습니다."
+          <cite>— Christian Kleinerman</cite>
+        </div>
+        <span class="kw" onclick="goTo('s13')">Under Armour 사례 보기 →</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S10 CoWork ══ -->
+<div class="slide" id="s10">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s04')">← 4막 개요</button>
+    <div class="eyebrow pu">ACT 4 · 모두를 위한 AI</div>
+    <div class="h2" style="background:linear-gradient(130deg,#fff 35%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Snowflake CoWork — 개인 AI 워크 엔진</div>
+    <div class="divline" style="background:linear-gradient(90deg,var(--purple),var(--blue))"></div>
+    <div class="g2">
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,18px)">
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-n gr">83%</div><div class="stat-l">Cortex Sense 정확도</div></div>
+          <div class="stat-card"><div class="stat-n pu">1,000</div><div class="stat-l">Samsung 임원 사용자</div></div>
+        </div>
+        <ul class="blist">
+          <li><strong>Personal Work Engine</strong>: 에이전트 선택 불필요. 개인 에이전트가 멀티 에이전트 워크플로우 조율</li>
+          <li><strong>User Memory</strong>: 사용 패턴·선호도 학습 → 응답 품질 지속 향상</li>
+          <li><strong>Scheduled Tasks</strong>: "매주 월요일 6시에 이메일로 보내줘" — 자연어 예약</li>
+          <li><strong>차세대 Artifacts</strong>: 라이브 데이터와 연결된 거버넌스 대시보드. CoCo로 빌드 → CoWork로 공유</li>
+          <li><span class="kw gr" onclick="goTo('s11')">Cortex Sense (NEW) ↗</span> — 정확도 24% → 83%</li>
+          <li><strong>Natoma 인수</strong>: MCP를 통해 100개 이상의 비즈니스 시스템과 연결</li>
+        </ul>
+        <span class="kw" onclick="goTo('s14')">Samsung 사례 보기 →</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div class="ibox" style="border-color:rgba(129,140,248,.25)">
+          <div class="ibox-t pu">🎬 Demo 3: CoWork Personal Work Agent (1:41:40~)</div>
+          <div class="vid-thumb" data-start="6100" style="margin-bottom:10px">
+            <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/11_christian_cowork.jpg" alt="CoWork Demo">
+            <div class="vid-play"><div class="vid-play-btn">▶</div></div>
+            <div class="vid-label">▶ 1:41:40~ 재생</div>
+          </div>
+          <ol class="dsteps">
+            <li>"오늘 하루를 시작해줘" → 이메일·Slack·영업 데이터 통합 브리핑 즉시 생성</li>
+            <li>자동화: 매일 오전 6시 이메일 발송 (사전 설정)</li>
+            <li>VIP 급증 +45% 차트를 Artifact로 팀원과 공유</li>
+            <li>Deep Research: 병렬 서브 에이전트로 심층 분석 보고서 자동 생성</li>
+            <li>Cortex Sense: 여러 Artifact에서 횡단적 인사이트 추출</li>
+            <li>Slack MCP: 클릭 한 번으로 분석 결과를 Slack에 전송</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S11 Cortex Sense ══ -->
+<div class="slide" id="s11">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s10')">← CoWork로</button>
+    <div class="eyebrow pu">CoWork 핵심 기술</div>
+    <div class="h2">Cortex Sense — 런타임 정확도 엔진</div>
+    <div class="divline" style="background:linear-gradient(90deg,var(--green),var(--blue))"></div>
+    <div class="g2">
+      <div>
+        <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/10_cortex_sense.jpg" alt="Cortex Sense" class="slide-img" style="margin-bottom:clamp(10px,1.5vh,16px)">
+        <div class="acc-wrap">
+          <div style="flex:1;text-align:center">
+            <div class="acc-n" style="color:var(--red)">24%</div>
+            <div class="acc-l">일반 프론티어 모델<br>(컨텍스트 없음)</div>
+          </div>
+          <div style="font-size:clamp(24px,4vw,48px);color:var(--blue)">→</div>
+          <div style="flex:1;text-align:center">
+            <div class="acc-n" style="color:var(--green)">83%</div>
+            <div class="acc-l">Cortex Sense<br>(전체 비즈니스 컨텍스트)</div>
+          </div>
+        </div>
+        <ul class="blist">
+          <li>런타임에서 <strong>데이터·비즈니스 정의·운영 지식</strong>을 자동으로 조합</li>
+          <li>정적 시맨틱 레이어와 달리 <strong>동적으로 컨텍스트를 조합</strong></li>
+          <li>에이전트가 쿼리할 때마다 가장 관련성 높은 컨텍스트를 실시간 제공</li>
+          <li>CoWork와 CoCo <strong>모두에서 동작</strong>, 별도 설정 없이 자동 활성화</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <div class="ibox">
+          <div class="ibox-t">Horizon Context와의 연계</div>
+          <ul class="blist">
+            <li>Horizon Context가 <strong>시맨틱 신호를 수집</strong></li>
+            <li>Cortex Sense가 <strong>런타임에 동적으로 조합</strong></li>
+            <li>Semantic Views와 외부 메타데이터 커넥터 활용</li>
+          </ul>
+          <div style="margin-top:10px"><span class="kw" onclick="goTo('s08')">Horizon Context 상세 보기 ↗</span></div>
+        </div>
+        <div class="quote">
+          "Samsung: 임원 1,000명이 에이전트를 사용 — 데이터 과학자가 아닙니다."
+          <cite>— Christian Kleinerman</cite>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="kw pu" onclick="goTo('s10')">← CoWork 전체</span>
+          <span class="kw" onclick="goTo('s14')">Samsung 사례 →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S12 Thomson Reuters ══ -->
+<div class="slide" id="s12">
+  <div class="cust-wrap">
+    <div class="cust-l">
+      <button class="back" style="position:static;margin-bottom:clamp(14px,2.5vh,24px);align-self:flex-start" onclick="goTo('s02')">← 목차로</button>
+      <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/05_caitlin_thomson_reuters.jpg" alt="Caitlin Hugerty" class="cust-photo">
+      <div style="font-size:clamp(18px,2.5vw,28px);font-weight:800;margin-bottom:6px">Thomson Reuters</div>
+      <div style="font-size:clamp(12px,1.2vw,14px);color:var(--muted);line-height:1.6">Caitlin Hugerty<br>VP of AI &amp; Data</div>
+      <div style="margin-top:16px;font-size:clamp(10px,.9vw,12px);color:var(--muted)">화이어사이드 챗 (~56:54)</div>
+      <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
+        <span class="kw gr" style="font-size:clamp(9px,.85vw,11px)">거버넌스</span>
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)">100만+ 사용자</span>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap">
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s13')">UA →</span>
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s14')">Samsung →</span>
+      </div>
+    </div>
+    <div class="cust-r">
+      <div class="eyebrow" style="margin-bottom:6px">고객 사례 1/3</div>
+      <div class="h2">거버넌스는 AI 가속 장치</div>
+      <div class="divline"></div>
+      <ul class="blist">
+        <li><strong>CoCounsel</strong>: 법률·세무·감사 전문가 <strong>100만+ 명</strong>이 매일 사용하는 플래그십 AI 제품</li>
+        <li><strong>Semantic Intelligence</strong>: 1,500+ 내부 사용자가 가장 중요한 금융·비즈니스 의사결정에 활용</li>
+        <li>로이터 뉴스, 원자재, HR 등 <strong>구조화·비정형 데이터를 거버넌스와 함께 통합</strong></li>
+        <li>파일럿이 아닌 <strong>실제 운영 환경</strong>에서 AI 제품 운영 중 — 재무 검증 지표 내재화</li>
+        <li>규제 준수를 AI 도입의 제약이 아닌 <strong>신뢰 구축의 기반</strong>으로 활용</li>
+      </ul>
+      <div class="quote" style="margin-top:clamp(14px,2.5vh,24px)">
+        "거버넌스는 제약이 아닌 가속 장치입니다 — AI 전환의 리스크를 줄이고 속도를 높입니다."
+        <cite>— Caitlin Hugerty, Thomson Reuters VP of AI &amp; Data</cite>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S13 Under Armour ══ -->
+<div class="slide" id="s13">
+  <div class="cust-wrap">
+    <div class="cust-l">
+      <button class="back" style="position:static;margin-bottom:clamp(14px,2.5vh,24px);align-self:flex-start" onclick="goTo('s02')">← 목차로</button>
+      <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/08_patrick_under_armour.jpg" alt="Patrick Deroso" class="cust-photo">
+      <div style="font-size:clamp(18px,2.5vw,28px);font-weight:800;margin-bottom:6px">Under Armour</div>
+      <div style="font-size:clamp(12px,1.2vw,14px);color:var(--muted);line-height:1.6">Patrick Deroso<br>Chief Data &amp; AI Officer</div>
+      <div style="margin-top:16px;font-size:clamp(10px,.9vw,12px);color:var(--muted)">무대 발표 (~1:27:00)</div>
+      <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)">7년 파트너십</span>
+        <span class="kw gr" style="font-size:clamp(9px,.85vw,11px)">오픈 플랫폼</span>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap">
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s12')">← Thomson</span>
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s14')">Samsung →</span>
+      </div>
+    </div>
+    <div class="cust-r">
+      <div class="eyebrow" style="margin-bottom:6px">고객 사례 2/3</div>
+      <div class="h2">종속 없는 인터-옵 전략</div>
+      <div class="divline"></div>
+      <ul class="blist">
+        <li>Snowflake와 <strong>7년 파트너십</strong>. "기념비"로서 선택 — 종속 없음, 무한 확장</li>
+        <li>내부 에이전트 <strong>"Ada"</strong>: 모든 팀원이 자연어로 데이터 쿼리 가능</li>
+        <li>Elementum 파트너와 함께 <strong>AX(AI 기반 프로세스 전환)</strong> 구축</li>
+        <li>단순 최적화가 아닌 <strong>워크플로우 자체를 재설계</strong>하는 접근</li>
+        <li><span class="kw" onclick="goTo('s09')">SAP·Workday 제로카피 ↗</span>가 핵심 가능 요소</li>
+      </ul>
+      <div class="quote" style="margin-top:clamp(14px,2.5vh,24px)">
+        "상호운용성에서 핵심은 비즈니스 파트너들이 기업 수준에서 데이터와 연동하고 싶은 애플리케이션을 갖고 있다는 것입니다."
+        <cite>— Patrick Deroso, Under Armour CDAO</cite>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S14 Samsung ══ -->
+<div class="slide" id="s14">
+  <div style="display:flex;flex:1;min-height:0">
+    <!-- 왼쪽 패널 -->
+    <div class="cust-l" style="width:clamp(160px,18vw,260px)">
+      <button class="back" style="position:static;margin-bottom:clamp(10px,2vh,20px);align-self:flex-start" onclick="goTo('s02')">← 목차로</button>
+      <div style="font-size:clamp(24px,3.5vw,38px);margin-bottom:10px">📱</div>
+      <div style="font-size:clamp(16px,2.2vw,24px);font-weight:800;margin-bottom:4px">Samsung</div>
+      <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.6">Jung Suh<br>VP, Digital Commerce</div>
+      <div style="margin-top:12px;font-size:clamp(10px,.9vw,11px);color:var(--muted)">무대 발표 (~1:32:20)</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <span class="kw pu" style="font-size:clamp(9px,.85vw,11px)">임원 1,000명</span>
+        <span class="kw gr" style="font-size:clamp(9px,.85vw,11px)">AX 전환</span>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s12')">← Thomson</span>
+        <span class="kw" style="font-size:clamp(9px,.85vw,11px)" onclick="goTo('s13')">← UA</span>
+      </div>
+    </div>
+    <!-- 오른쪽: 영상 + 요약 -->
+    <div style="flex:1;display:flex;flex-direction:column;padding:clamp(16px,2.5vh,32px) clamp(16px,2.5vw,40px);overflow-y:auto;gap:clamp(10px,1.8vh,16px)">
+      <div>
+        <div class="eyebrow" style="margin-bottom:4px">고객 사례 3/3</div>
+        <div class="h2" style="font-size:clamp(16px,2.2vw,28px)">1,000명 임원이 매일 쓰는 AI</div>
+        <div class="divline" style="margin:8px 0 0"></div>
+      </div>
+      <!-- YouTube 영상 -->
+      <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border);flex-shrink:0">
+        <iframe
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"
+          src="https://www.youtube.com/embed/NFTdHYp9uJo?start=5540&rel=0&modestbranding=1"
+          title="Samsung — Snowflake Summit 2026 Platform Keynote"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <!-- 핵심 포인트 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.2vw,14px)">
+        <div class="ibox" style="padding:clamp(10px,1.5vh,16px)">
+          <div class="ibox-t">핵심 성과</div>
+          <ul class="blist">
+            <li><strong>SIA 에이전트</strong>: Galaxy S26 출시 때 실제 운영, 수 시간 → <strong>수 초</strong></li>
+            <li>임원·영업 <strong>1,000명</strong> 매일 사용 — 데이터 과학자 0명</li>
+          </ul>
+        </div>
+        <div class="quote" style="margin:0;font-size:clamp(11px,1.1vw,13px)">
+          "데이터팀 병목 해소 → 모든 리더가 자신만의 분석가로서 AX 모델에서 운영되는 전환."
+          <cite>— Jung Suh, Samsung VP Digital Commerce</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S15 ACTIONS ══ -->
+<div class="slide" id="s15">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s02')">← 목차로</button>
+    <div class="eyebrow">NEXT STEPS</div>
+    <div class="h2">지금 할 수 있는 구체적인 액션</div>
+    <div class="divline"></div>
+    <div class="ag">
+      <div class="card" style="display:flex;flex-direction:column;gap:8px">
+        <span style="display:inline-block;padding:3px 10px;border-radius:4px;background:rgba(52,211,153,.12);color:var(--green);font-size:clamp(10px,.9vw,11px);font-weight:700;align-self:flex-start">지금 바로</span>
+        <div style="font-size:clamp(12px,1.3vw,14px);font-weight:700"><span class="kw" onclick="goTo('s05')">CoCo Desktop ↗</span> 설치</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.65">자연어로 파이프라인을 빌드·수정·배포하는 경험을 시작하세요. Desktop / Snowsight / CLI 중 선택. 파괴적 작업은 승인이 필요해 안전하게 탐색 가능.</div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:8px">
+        <span style="display:inline-block;padding:3px 10px;border-radius:4px;background:rgba(52,211,153,.12);color:var(--green);font-size:clamp(10px,.9vw,11px);font-weight:700;align-self:flex-start">지금 바로</span>
+        <div style="font-size:clamp(12px,1.3vw,14px);font-weight:700"><span class="kw pu" onclick="goTo('s10')">CoWork ↗</span> 배포</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.65">조직 전체에 개인 AI 어시스턴트를 제공하세요. Personal Work Engine이 에이전트 선택을 없애고, Cortex Sense가 정확도를 24% → 83%로 자동 향상합니다.</div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:8px">
+        <span style="display:inline-block;padding:3px 10px;border-radius:4px;background:rgba(251,191,36,.12);color:var(--yellow);font-size:clamp(10px,.9vw,11px);font-weight:700;align-self:flex-start">곧 시작</span>
+        <div style="font-size:clamp(12px,1.3vw,14px);font-weight:700"><span class="kw" onclick="goTo('s07')">거버넌스 ↗</span> 먼저 구축</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.65">AI 배포 전에 의도 기반 거버넌스, Agent Identity, Data Movement Policy를 결합하세요. Thomson Reuters 모델처럼 거버넌스를 가속 장치로 활용.</div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:8px">
+        <span style="display:inline-block;padding:3px 10px;border-radius:4px;background:rgba(251,191,36,.12);color:var(--yellow);font-size:clamp(10px,.9vw,11px);font-weight:700;align-self:flex-start">곧 시작</span>
+        <div style="font-size:clamp(12px,1.3vw,14px);font-weight:700"><span class="kw" onclick="goTo('s09')">제로카피 통합 ↗</span> 평가</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.65">SAP, Workday, Salesforce와의 제로카피 통합을 검토하거나 Open Sharing으로 비Snowflake 엔진에 데이터를 제공하세요. Iceberg Storage는 AWS·Azure GA.</div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:8px">
+        <span style="display:inline-block;padding:3px 10px;border-radius:4px;background:rgba(251,191,36,.12);color:var(--yellow);font-size:clamp(10px,.9vw,11px);font-weight:700;align-self:flex-start">곧 시작</span>
+        <div style="font-size:clamp(12px,1.3vw,14px);font-weight:700">Data Stream 전환 검토</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.65">Kafka를 사용 중이라면 Snowflake Data Stream(Kafka Wire 호환, 완전 관리형, 제로카피, 밀리초 미만)으로의 전환 비용 절감 가능성을 평가하세요.</div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:8px">
+        <span style="display:inline-block;padding:3px 10px;border-radius:4px;background:rgba(129,140,248,.12);color:var(--purple);font-size:clamp(10px,.9vw,11px);font-weight:700;align-self:flex-start">탐색</span>
+        <div style="font-size:clamp(12px,1.3vw,14px);font-weight:700"><span class="kw" onclick="goTo('s14')">Samsung AX 모델 ↗</span> 적용</div>
+        <div style="font-size:clamp(11px,1.1vw,13px);color:var(--muted);line-height:1.65">보고서 요청·승인·데이터 수집 등 기존 워크플로우 중 CoWork로 자동화·재설계할 수 있는 것을 찾으세요. 1,000명 임원이 매일 검증한 모델.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S16 CLOSING ══ -->
+<div class="slide" id="s16">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;
+    background:radial-gradient(ellipse at 40% 60%,#0d2550 0%,var(--bg) 65%);padding:clamp(24px,5vw,60px)">
+    <div style="max-width:min(680px,90%)">
+      <div class="eyebrow" style="justify-content:center;display:block;margin-bottom:24px">SNOWFLAKE SUMMIT 2026 · CLOSING</div>
+      <div style="font-size:clamp(16px,2.2vw,24px);color:var(--muted);font-style:italic;line-height:1.8;margin-bottom:32px">
+        "Snowflake는 여러분을<br>
+        <span style="color:var(--text);font-style:normal;font-weight:700">'할 수 있을까? (Can we?)'</span> 시대에서<br>
+        <span style="color:var(--blue);font-style:normal;font-weight:700">'이제 해볼까? (Shall we?)'</span> 시대로<br>
+        이끕니다."
+      </div>
+      <div style="font-size:clamp(12px,1.2vw,14px);color:var(--muted);margin-bottom:clamp(24px,4vh,40px)">— Christian Kleinerman, EVP of Product, Snowflake</div>
+      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+        <span class="kw" onclick="goTo('s01')">처음으로</span>
+        <span class="kw" onclick="goTo('s02')">목차로</span>
+        <a class="kw gr" href="https://www.youtube.com/watch?v=NFTdHYp9uJo" target="_blank">▶ YouTube 원본</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- ── NAVBAR ── -->
+<div id="navbar">
+  <button class="nbtn" id="btn-prev" onclick="prevSlide()">← 이전</button>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="nbtn" onclick="goTo('s01')">⌂</button>
+    <span id="ctr">1 / 16</span>
+    <button class="nbtn purple" onclick="goTo('s02')">☰ 목차</button>
+  </div>
+  <button class="nbtn" id="btn-next" onclick="nextSlide()">다음 →</button>
+</div>
+
+<script>
+const ORDER=['s01','s02','s03','s04','s05','s06','s07','s08','s09','s10','s11','s12','s13','s14','s15','s16'];
+let cur=0,busy=false;
+
+function idx(id){return ORDER.indexOf(id)}
+
+function goTo(id,dir){
+  if(busy)return;
+  const to=idx(id);
+  if(to===cur)return;
+  const d=dir!==undefined?dir:(to>cur?1:-1);
+  busy=true;
+  const fe=document.getElementById(ORDER[cur]);
+  const te=document.getElementById(id);
+  te.style.display='flex';
+  te.classList.add(d>0?'er':'el');
+  fe.classList.add(d>0?'xl':'xr');
+  setTimeout(()=>{
+    fe.style.display='none';
+    fe.classList.remove('active','xl','xr');
+    te.classList.remove('er','el');
+    te.classList.add('active');
+    cur=to;ui();busy=false;
+  },300);
+}
+function nextSlide(){if(cur<ORDER.length-1)goTo(ORDER[cur+1],1)}
+function prevSlide(){if(cur>0)goTo(ORDER[cur-1],-1)}
+function ui(){
+  const n=cur+1,t=ORDER.length;
+  document.getElementById('ctr').textContent=`${n} / ${t}`;
+  document.getElementById('prog').style.width=`${(n/t)*100}%`;
+  document.getElementById('btn-prev').style.opacity=cur===0?'.3':'1';
+  document.getElementById('btn-next').style.opacity=cur===ORDER.length-1?'.3':'1';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')nextSlide();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevSlide();
+  if(e.key==='Home')goTo('s01');
+  if(e.key==='End')goTo(ORDER[ORDER.length-1]);
+});
+ui();
+
+document.querySelectorAll('.vid-thumb').forEach(el=>{
+  el.addEventListener('click',function(){
+    const start=this.dataset.start||'0';
+    const wrap=document.createElement('div');
+    wrap.style.cssText='position:relative;padding-bottom:56.25%;border-radius:8px;overflow:hidden;background:#000;margin-bottom:10px;flex-shrink:0';
+    const iframe=document.createElement('iframe');
+    iframe.src=`https://www.youtube.com/embed/NFTdHYp9uJo?start=${start}&autoplay=1&rel=0&modestbranding=1`;
+    iframe.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:0';
+    iframe.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
+    iframe.allowFullscreen=true;
+    wrap.appendChild(iframe);
+    this.replaceWith(wrap);
+  });
+});
+</script>
+</body>
+</html>

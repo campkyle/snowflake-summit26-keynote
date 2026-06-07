@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snowflake Summit 2026 — Day 2 플랫폼 키노트 요약 (한국어)</title>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --bg2: #111827;
+      --bg3: #1a2235;
+      --card: #161d2e;
+      --border: #1e2d45;
+      --blue: #29b5e8;
+      --blue2: #1a8fc1;
+      --purple: #6366f1;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --tag-bg: #1e3a5f;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── TOP BANNER ─── */
+    .top-banner {
+      background: linear-gradient(135deg, #0d1b2e 0%, #0b1d3a 50%, #0d2347 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(160deg, #06101f 0%, #0a1628 40%, #0d1e3c 100%);
+      padding: 64px 24px 56px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(41,181,232,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 30%, #29b5e8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+    .hero-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      display: block;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--blue);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .speakers-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .speaker-chip {
+      background: var(--tag-bg);
+      color: var(--blue);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(41,181,232,0.25);
+    }
+    .guest-chip {
+      background: rgba(99,102,241,0.15);
+      color: #a5b4fc;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(99,102,241,0.25);
+    }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .section {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ─── OVERVIEW CARD ─── */
+    .overview-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      line-height: 1.85;
+      color: #cbd5e1;
+    }
+    .overview-card p + p { margin-top: 14px; }
+
+    /* ─── KEY TAKEAWAY CARDS ─── */
+    .takeaway-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .takeaway-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .takeaway-card:hover { border-color: var(--blue); }
+    .takeaway-num {
+      font-size: 11px;
+      color: var(--blue);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .takeaway-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .takeaway-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .takeaway-card li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 4px 0 4px 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .takeaway-card li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    /* ─── RENAME BANNER ─── */
+    .rename-banner {
+      background: linear-gradient(135deg, #0d1e3c, #12243d);
+      border: 1px solid rgba(41,181,232,0.3);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+    .rename-banner .badge {
+      display: inline-block;
+      background: rgba(41,181,232,0.15);
+      color: var(--blue);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .rename-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .rename-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 24px;
+      min-width: 180px;
+      text-align: center;
+    }
+    .rename-box .from {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .rename-box .name {
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .rename-arrow {
+      font-size: 28px;
+      color: var(--blue);
+      font-weight: 300;
+    }
+    .rename-banner blockquote {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    /* ─── 4 ACTS ─── */
+    .acts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .act-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .act-num {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .act-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--blue);
+    }
+    .act-card ul { list-style: none; }
+    .act-card li {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 3px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .act-card li:last-child { border-bottom: none; }
+
+    /* ─── PRODUCT CARDS ─── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) { .product-grid { grid-template-columns: 1fr; } }
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card.coco { border-top: 3px solid var(--blue); }
+    .product-card.cowork { border-top: 3px solid var(--purple); }
+    .product-audience {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .product-card.coco .product-audience { color: var(--blue); }
+    .product-card.cowork .product-audience { color: #a5b4fc; }
+    .product-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .product-sub { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .product-quote {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--muted);
+      border-left: 3px solid var(--border);
+      padding-left: 12px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .product-metric {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: 800;
+      margin-right: 8px;
+    }
+    .product-card.coco .product-metric { color: var(--blue); }
+    .product-card.cowork .product-metric { color: #a5b4fc; }
+    .metric-label { font-size: 12px; color: var(--muted); }
+    .metrics-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+    .metric-item { text-align: center; }
+    .product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .ptag {
+      background: rgba(41,181,232,0.1);
+      color: var(--blue);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .product-card.cowork .ptag {
+      background: rgba(99,102,241,0.1);
+      color: #a5b4fc;
+    }
+
+    /* ─── TIMELINE SECTIONS ─── */
+    .timeline { border-left: 2px solid var(--border); padding-left: 24px; }
+    .tl-item { margin-bottom: 36px; position: relative; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -30px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 2px solid var(--bg);
+    }
+    .tl-speaker {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .tl-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .tl-time {
+      display: inline-block;
+      background: rgba(41,181,232,0.1);
+      color: var(--blue);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .tl-bullets { list-style: none; padding: 0; }
+    .tl-bullets li {
+      font-size: 13px;
+      color: #94a3b8;
+      padding: 4px 0 4px 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .tl-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-size: 10px;
+      top: 6px;
+    }
+    .tl-quote {
+      background: var(--bg3);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 12px 0;
+      font-style: italic;
+      font-size: 14px;
+      color: #e2e8f0;
+    }
+    .tl-quote cite {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      font-style: normal;
+    }
+    .demo-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 12px;
+    }
+    .demo-box-label {
+      font-size: 11px;
+      color: var(--blue);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .demo-box ol { padding-left: 18px; }
+    .demo-box li { font-size: 13px; color: var(--muted); padding: 4px 0; line-height: 1.6; }
+
+    /* ─── CUSTOMER CARDS ─── */
+    .customer-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
+    .customer-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+    .customer-card ul { list-style: none; }
+    .customer-card li { font-size: 13px; color: var(--muted); padding: 3px 0 3px 14px; position: relative; line-height: 1.6; }
+    .customer-card li::before { content: '·'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+
+    /* ─── ACTION ITEMS ─── */
+    .action-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .action-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .action-timing {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .timing-now { background: rgba(34,197,94,0.15); color: var(--green); }
+    .timing-soon { background: rgba(245,158,11,0.15); color: var(--yellow); }
+    .timing-explore { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+    .action-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ─── HIGHLIGHT BOX ─── */
+    .highlight-box {
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #86efac;
+      margin: 14px 0;
+    }
+    .highlight-box.yellow {
+      background: rgba(245,158,11,0.08);
+      border-color: rgba(245,158,11,0.3);
+      color: #fcd34d;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    footer .yt-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue);
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .stats-row { gap: 24px; }
+      .stat-num { font-size: 26px; }
+      .hero { padding: 40px 16px 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">SNOWFLAKE SUMMIT 2026 · DAY 2 · 플랫폼 키노트 한국어 요약</div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">2026년 6월 2일 · 샌프란시스코 모스콘 센터</div>
+      <h1>플랫폼 키노트 요약</h1>
+      <div class="hero-meta">영어 트랜스크립트 기반 | YouTube: <a href="https://www.youtube.com/watch?v=NFTdHYp9uJo" target="_blank">바로가기 →</a></div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Act 구조</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">30<span style="font-size:20px">+</span></span>
+          <span class="stat-label">제품 발표 ✨</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">90<span style="font-size:20px">분</span></span>
+          <span class="stat-label">키노트 시간</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px;font-style:italic;">"Rethink What Is Possible"</p>
+      <div class="speakers-row">
+        <span class="speaker-chip">Benoit Dageville · 공동창업자</span>
+        <span class="speaker-chip">Christian Kleinerman · EVP, Product</span>
+        <span class="speaker-chip">Dash Desai · 라이브 데모</span>
+        <span class="guest-chip">Thomson Reuters</span>
+        <span class="guest-chip">Under Armour</span>
+        <span class="guest-chip">Samsung</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <div class="container">
+    <div class="section">
+      <div class="section-label">개요</div>
+      <div class="section-title">5분으로 보는 플랫폼 키노트</div>
+      <div class="section-subtitle">핵심 내용을 빠르게 파악하세요</div>
+      <div class="overview-card">
+        <p>
+          Day 2 플랫폼 키노트는 Snowflake 공동창업자 <strong>Benoit Dageville</strong>이 창업 10주년을 돌아보며 시작되었습니다. 이후 제품 EVP <strong>Christian Kleinerman</strong>이 90분에 걸쳐 30개 이상의 제품 발표를 진행했습니다.
+          세션의 첫 번째 하이라이트는 공식 명칭 변경 — <strong>Cortex Code → Snowflake CoCo</strong>, <strong>Snowflake Intelligence → Snowflake CoWork</strong> — 였으며, 관중으로부터 강렬한 반응을 이끌어냈습니다.
+        </p>
+        <p>
+          키노트는 4막 구조로 진행되었습니다: <strong>사용 편의성 / 신뢰 / 개방성 & 상호운용성 / 모두를 위한 CoWork</strong>. 주요 발표로는 <strong>CoCo Desktop GA</strong>, Kafka 호환 스트리밍 <strong>Snowflake Data Stream</strong>, 에이전트 정확도를 획기적으로 향상시킨 <strong>Cortex Sense</strong>, SAP·Workday 등과의 제로카피 통합 확장, <strong>Adaptive Compute GA</strong>(약 2배 빠른 성능) 등이 있었습니다.
+        </p>
+        <p>
+          Thomson Reuters(거버넌스), Under Armour(상호운용성), Samsung(CoWork)이 무대에 올라 실제 운영 환경에서 AI를 활용하는 방법을 공유했습니다. 키노트의 마지막 메시지는 <em>"Snowflake는 여러분을 'can we(할 수 있을까?)' 시대에서 'shall we(이제 해볼까?)' 시대로 이끕니다."</em>였습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="section">
+      <div class="section-label">핵심 인사이트</div>
+      <div class="section-title">비즈니스 리더를 위한 4가지 핵심 포인트</div>
+      <div class="section-subtitle">플랫폼 키노트에서 가장 중요한 비즈니스 시사점</div>
+      <div class="takeaway-grid">
+        <div class="takeaway-card">
+          <div class="takeaway-num">POINT 01</div>
+          <h3>마찰 제거 — CoCo가 바꾸는 개발의 미래</h3>
+          <ul>
+            <li>"우리는 마찰 제거 사업을 하고 있습니다."</li>
+            <li>CoCo Desktop GA: 자연어로 파이프라인 빌드·수정·배포</li>
+            <li>Spark RDD → Snowflake 마이그레이션에서 <strong>5배 성능 향상</strong></li>
+            <li>파괴적 작업은 반드시 인간 승인 필요 — AI가 혼자 행동하지 않음</li>
+            <li>Desktop, Snowsight, CLI 3가지 형태로 제공</li>
+          </ul>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">POINT 02</div>
+          <h3>거버넌스는 AI의 장애물이 아닌 가속 장치</h3>
+          <ul>
+            <li>"거버넌스는 제약이 아닌 가속 장치입니다." — Thomson Reuters</li>
+            <li>"모든 PII를 보호해줘"라고 말하면 자동으로 정책 생성 및 적용</li>
+            <li>Agent Identity: 모든 에이전트의 활동을 가시적·제어 가능하게</li>
+            <li>Data Movement Policy: 시스템 레벨에서 데이터 유출 차단</li>
+            <li>Thomson Reuters: CoCounsel, 100만+ 전문가가 실제로 사용 중</li>
+          </ul>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">POINT 03</div>
+          <h3>벤더 종속 없는 개방형 데이터 기반이 현실화</h3>
+          <ul>
+            <li>"Snowflake로는 아무도 종속감을 느끼지 않습니다."</li>
+            <li>Iceberg V3 최광범위 구현, V4 스펙 개발 참여</li>
+            <li>SAP, Workday, IBM, AVEVA와 제로카피 연결 (SAP는 GA)</li>
+            <li>Open Sharing: Iceberg REST로 비Snowflake 사용자에게 데이터 직접 전달</li>
+            <li>Multi-party Collaboration GA: 여러 조직이 하나의 안전한 환경에서 협업</li>
+          </ul>
+        </div>
+        <div class="takeaway-card">
+          <div class="takeaway-num">POINT 04</div>
+          <h3>데이터팀 병목 현상이 마침내 해소</h3>
+          <ul>
+            <li>"Samsung: 임원 1,000명이 에이전트를 사용 — 데이터 과학자가 아닙니다."</li>
+            <li>CoWork: 모든 직원에게 개인 데이터 분석가 제공</li>
+            <li>Cortex Sense: 에이전트 정확도 24% → <strong>83%</strong>로 자동 향상</li>
+            <li>Samsung: 1,000명의 임원·영업·마케팅 직원이 매일 에이전트 활용</li>
+            <li>Natoma 인수: CoCo/CoWork를 100개 이상의 비즈니스 시스템과 연결</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RENAME -->
+    <div class="section">
+      <div class="section-label">주요 발표</div>
+      <div class="section-title">공식 제품명 변경</div>
+      <div class="section-subtitle">Summit 2026에서 공식 발표된 리브랜딩</div>
+      <div class="rename-banner">
+        <div class="badge">공식 리브랜딩</div>
+        <div class="rename-flex">
+          <div class="rename-box">
+            <div class="from">기존 이름</div>
+            <div class="name" style="color:var(--muted);text-decoration:line-through;">Cortex Code</div>
+          </div>
+          <div class="rename-arrow">→</div>
+          <div class="rename-box">
+            <div class="from">새 이름</div>
+            <div class="name" style="color:var(--blue);">Snowflake CoCo</div>
+          </div>
+        </div>
+        <div class="rename-flex">
+          <div class="rename-box">
+            <div class="from">기존 이름</div>
+            <div class="name" style="color:var(--muted);text-decoration:line-through;">Snowflake Intelligence</div>
+          </div>
+          <div class="rename-arrow">→</div>
+          <div class="rename-box">
+            <div class="from">새 이름</div>
+            <div class="name" style="color:#a5b4fc;">Snowflake CoWork</div>
+          </div>
+        </div>
+        <blockquote>"여기서부터는 Cortex Code라고 부르지 않습니다. 공식적으로 Snowflake CoCo입니다." — Christian Kleinerman</blockquote>
+        <blockquote style="margin-top:8px">"Snowflake Intelligence의 범위는 우리가 시작했을 때보다 훨씬 넓어졌습니다. 업무 방식 자체를 바꾸고 있습니다."</blockquote>
+      </div>
+    </div>
+
+    <!-- 4 ACTS -->
+    <div class="section">
+      <div class="section-label">4막 구조</div>
+      <div class="section-title">오늘 발표를 관통하는 네 가지 테마</div>
+      <div class="section-subtitle">플랫폼 키노트의 전체 흐름</div>
+      <div class="acts-grid">
+        <div class="act-card">
+          <div class="act-num">ACT 1</div>
+          <div class="act-title">사용 편의성 — 마찰 제거</div>
+          <ul>
+            <li>CoCo Desktop GA</li>
+            <li>Cloud Agents / Skill Catalog</li>
+            <li>Snap and Ask</li>
+            <li>Snowflake Data Stream (Private Preview)</li>
+            <li>Cortex Function Studio / Agentic Search</li>
+            <li>Snowflake App Runtime (React/Node.js)</li>
+          </ul>
+        </div>
+        <div class="act-card">
+          <div class="act-num">ACT 2</div>
+          <div class="act-title">신뢰 — 거버넌스 & 보안</div>
+          <ul>
+            <li>의도 기반 거버넌스</li>
+            <li>Agent Identity / Data Movement Policies</li>
+            <li>Multi-party Approvals</li>
+            <li>Horizon Context (NEW)</li>
+            <li>Interactive Compiler (40배 빠른 컴파일)</li>
+            <li>차세대 계정 복제 (20배 빠름)</li>
+          </ul>
+        </div>
+        <div class="act-card">
+          <div class="act-num">ACT 3</div>
+          <div class="act-title">개방성 & 상호운용성 — 사일로 제거</div>
+          <ul>
+            <li>Iceberg V3 최광범위 구현 + V4 스펙 참여</li>
+            <li>Snowflake Managed Iceberg Storage GA</li>
+            <li>Data Re-sharing GA</li>
+            <li>Open Sharing (Iceberg REST)</li>
+            <li>Multi-party Collaboration GA</li>
+            <li>SAP 제로카피 통합 GA</li>
+          </ul>
+        </div>
+        <div class="act-card">
+          <div class="act-num">ACT 4</div>
+          <div class="act-title">모두를 위한 CoWork — 제어 플레인</div>
+          <ul>
+            <li>Personal Work Engine (에이전트 선택 불필요)</li>
+            <li>User Memory / Scheduled Tasks</li>
+            <li>차세대 Artifacts (라이브 데이터 연동)</li>
+            <li>Cortex Sense (정확도 24% → 83%)</li>
+            <li>Natoma 인수: 100+ 비즈니스 시스템 연결</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY PRODUCTS -->
+    <div class="section">
+      <div class="section-label">핵심 제품</div>
+      <div class="section-title">CoCo와 CoWork — 모든 조직의 제어 플레인</div>
+      <div class="section-subtitle">Summit 2026의 두 축</div>
+      <div class="product-grid">
+        <div class="product-card coco">
+          <div class="product-audience">개발자를 위한</div>
+          <h3>Snowflake CoCo</h3>
+          <div class="product-sub">AI 코딩 에이전트 (구 Cortex Code)</div>
+          <div class="product-quote">"충분히 발전된 기술은 마법과 구별할 수 없습니다."</div>
+          <div class="metrics-row">
+            <div class="metric-item">
+              <div class="product-metric">GA</div>
+              <div class="metric-label">CoCo Desktop 출시</div>
+            </div>
+            <div class="metric-item">
+              <div class="product-metric">5×</div>
+              <div class="metric-label">Spark → Snowflake 성능</div>
+            </div>
+            <div class="metric-item">
+              <div class="product-metric">3가지</div>
+              <div class="metric-label">Desktop / Snowsight / CLI</div>
+            </div>
+          </div>
+          <div class="product-tags">
+            <span class="ptag">CoCo Desktop GA</span>
+            <span class="ptag">Cloud Agents</span>
+            <span class="ptag">Skill Catalog</span>
+            <span class="ptag">Snap and Ask</span>
+          </div>
+        </div>
+        <div class="product-card cowork">
+          <div class="product-audience">모두를 위한</div>
+          <h3>Snowflake CoWork</h3>
+          <div class="product-sub">개인 AI 워크 엔진 (구 Snowflake Intelligence)</div>
+          <div class="product-quote">"모든 사람에게 자신만의 피트 크루가 생깁니다. 각자의 Jarvis가 생기는 것입니다."</div>
+          <div class="metrics-row">
+            <div class="metric-item">
+              <div class="product-metric">83%</div>
+              <div class="metric-label">Cortex Sense 정확도</div>
+            </div>
+            <div class="metric-item">
+              <div class="product-metric">1,000</div>
+              <div class="metric-label">Samsung 임원 활용자</div>
+            </div>
+          </div>
+          <div class="product-tags">
+            <span class="ptag">Deep Research GA</span>
+            <span class="ptag">Mobile App GA</span>
+            <span class="ptag">Personal Work Engine</span>
+            <span class="ptag">Cortex Sense NEW</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION BREAKDOWN -->
+    <div class="section">
+      <div class="section-label">섹션별 상세 내용</div>
+      <div class="section-title">발표 순서대로 정리한 주요 내용</div>
+      <div class="section-subtitle">키노트 전체 흐름 요약</div>
+      <div class="timeline">
+
+        <!-- BENOIT -->
+        <div class="tl-item">
+          <div class="tl-speaker">🏗️ Benoit Dageville — 공동창업자 & 수석 아키텍트</div>
+          <div class="tl-title">오프닝: 플랫폼 철학</div>
+          <div class="tl-time">~23:27</div>
+          <ul class="tl-bullets">
+            <li>CoCo가 라이브코딩 DJ "R. Tyler"와 협업한 오프닝 퍼포먼스 이후, Benoit Dageville이 Snowflake의 창업 기원과 현재까지의 여정을 돌아봤습니다.</li>
+            <li>2012년 창업 비전 — "데이터 사일로 제거" — 은 변하지 않았습니다. 2026년에는 원래의 SIGMOD 논문이 Test of Time Award를 수상했습니다.</li>
+            <li>구조화 + 반구조화 → Iceberg → 비정형 데이터로 확장. 컴퓨트 분리와 제로 유지보수 원칙은 여전히 유효합니다.</li>
+            <li>에이전트 시대의 두 가지 요건: 세계 최고의 데이터 기반 + 통합된 AI·데이터 아키텍처. 분리하면 사일로가 재생성됩니다.</li>
+          </ul>
+          <div class="tl-quote">
+            "여러분의 데이터가 AI 플랫폼을 믿을 수 없을 만큼 똑똑하게 만들고, AI는 전체 데이터 플랫폼을 더 빠르고, 더 단순하고, 무한히 생산적으로 만듭니다."
+            <cite>— Benoit Dageville</cite>
+          </div>
+        </div>
+
+        <!-- ACT 1 -->
+        <div class="tl-item">
+          <div class="tl-speaker">⚡ Christian Kleinerman — EVP of Product</div>
+          <div class="tl-title">Act 1: 사용 편의성 — 마찰 제거</div>
+          <div class="tl-time">23:27 – 50:00</div>
+          <ul class="tl-bullets">
+            <li><strong>CoCo Desktop GA</strong>: Plan → Build → Deploy를 하나의 흐름으로. CLI 수준의 파워를 UI로.</li>
+            <li><strong>Cloud Agents (nearly GA)</strong>: Snowsight과 CLI에 샌드박스 추가. 예약 실행, Async API, Skill Catalog 지원.</li>
+            <li><strong>Snap and Ask</strong>: 화면 어느 부분이든 캡처해 CoCo에게 질문 가능. 완전한 시각적 컨텍스트 제공.</li>
+            <li><strong>Snowflake Data Stream (Private Preview 예정)</strong>: 완전 관리형 Kafka Wire 호환 스트리밍. 제로카피, 밀리초 미만의 지연시간.</li>
+            <li><strong>AIM (AI 기반 마이그레이션)</strong>: Teradata 가상화 지원 (Snowflake에서 Teradata SQL 그대로 실행). Spark RDD → Snowflake 5배 성능 향상.</li>
+            <li><strong>Cortex Function Studio (Public Preview)</strong>: 맞춤형 AI 함수 빌드·평가·롤아웃.</li>
+            <li><strong>SpaceX Grok 모델</strong>이 Cortex에 추가 (Private Preview).</li>
+            <li><strong>Agentic Search (Public Preview)</strong>: 비정형 데이터에 대한 정밀한 분석 쿼리 — RAG가 아닌 구조화 변환 → SQL 응답.</li>
+            <li><strong>Snowflake App Runtime (Public Preview)</strong>: Snowflake 내에서 Node.js/React 앱 호스팅. 단일 <code>snow app deploy</code> 명령으로 배포.</li>
+            <li><strong>Streamlit in Snowflake GA</strong>: 워크스페이스, Git 통합, 컨테이너 실행. 월 활성 개발자 170만 명.</li>
+          </ul>
+          <div class="demo-box">
+            <div class="demo-box-label">🎬 Demo 1: Snow Music (Dash Desai) — 44:08~49:51, 약 6분</div>
+            <ol>
+              <li>CoCo Desktop이 자연어로 라이브 스트리밍 앱 파이프라인 장애를 진단 (누락된 device_type 컬럼 발견)</li>
+              <li>데이터 소스: Snowflake Data Stream + Iceberg 테이블 + Salesforce 제로카피 커넥터</li>
+              <li>파괴적 명령은 사용자 승인 필요 — AI가 단독으로 행동하지 않음</li>
+              <li>Snap and Ask: 인게이지먼트 차트를 선택하고 "왜 이게 떨어졌나요?" 질문 → 상세한 답변 제공</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- ACT 2 -->
+        <div class="tl-item">
+          <div class="tl-speaker">🛡️ Christian Kleinerman — EVP of Product</div>
+          <div class="tl-title">Act 2: 신뢰 — 거버넌스 & 보안</div>
+          <div class="tl-time">50:00 – 1:14:15</div>
+          <ul class="tl-bullets">
+            <li><strong>의도 기반 거버넌스</strong>: "모든 PII를 보호해줘"라고 말하면 자동 분류·정책 생성·지속적 거버넌스 시작 (CoCo/AI 기반).</li>
+            <li><strong>Horizon AI Guardrails</strong>: CoCo/CoWork를 런타임에서 탈옥 시도와 프롬프트 인젝션으로부터 보호.</li>
+            <li><strong>Agent Identity</strong>: 에이전트 실행 컨텍스트를 감지하는 새로운 컨텍스트 함수. 마스킹 정책과 행 접근 정책에서 참조 가능.</li>
+            <li><strong>Data Movement Policies</strong>: 태그된 데이터를 외부 스테이지로 전송하거나 Snowsight을 통해 다운로드하는 것을 차단.</li>
+            <li><strong>Multi-party Approvals (Private Preview)</strong>: 고위험 작업은 2인 승인 필요. 단독 관리자도 MFA를 일방적으로 비활성화할 수 없음.</li>
+            <li><strong>Horizon Context (NEW)</strong>: CoCo/CoWork/Cortex 에이전트에 시맨틱 신호를 자동으로 제공. Semantic Views와 외부 메타데이터 커넥터 통합.</li>
+            <li><strong>Adaptive Compute GA</strong>: 1세대 대비 약 2배 빠름, 현재 롤아웃 중.</li>
+            <li><strong>Interactive Compiler (NEW)</strong>: 새로운 쿼리 컴파일러로 40배 빠른 컴파일 → 3~4배의 워크로드 가속.</li>
+            <li><strong>Unistore 8배 최적화 (Public Preview)</strong>: 지연시간과 처리량 획기적 개선. Hybrid Table 사용자 재평가 권장.</li>
+            <li><strong>AI 비용 거버넌스</strong>: AI 사용량을 Budget에 통합. 사용자별 쿼터, Budget 커스텀 액션 (임계치에서 저장 프로시저 트리거).</li>
+            <li><strong>Observe 인수 완료</strong>: 로그, APM, 인프라 모니터링을 Snowflake에 네이티브로 통합. CoCo CLI + Iceberg 호환.</li>
+          </ul>
+          <div class="customer-card">
+            <div class="customer-name">🏛️ Thomson Reuters — Caitlin Hugerty, VP of AI & Data (화이어사이드 챗 ~56:54)</div>
+            <ul>
+              <li>CoCounsel: 법률·세무·감사 전문가 100만+ 명이 매일 사용하는 플래그십 AI</li>
+              <li>Semantic Intelligence: 1,500+ 내부 사용자가 가장 중요한 금융·비즈니스 의사결정에 활용</li>
+              <li>로이터 뉴스, 원자재, HR 등 구조화·비정형 데이터를 거버넌스와 함께 통합 — 실제 운영 환경에서 AI 제품 운영 중</li>
+            </ul>
+          </div>
+          <div class="tl-quote">
+            "거버넌스는 제약이 아닌 가속 장치입니다 — AI 전환의 리스크를 줄이고 속도를 높입니다."
+            <cite>— Caitlin Hugerty, Thomson Reuters</cite>
+          </div>
+          <div class="demo-box">
+            <div class="demo-box-label">🎬 Demo 2: 거버넌스 (Dash Desai) — 1:09:13~1:14:15, 약 5분</div>
+            <ol>
+              <li>CoWork로 VIP 연락처 요청 → 마스킹 정책이 실행되어 값이 숨겨짐</li>
+              <li>외부 스테이지로 데이터 내보내기 시도 → Data Movement Policy가 차단 (무대 위에서 실제 실패 발생)</li>
+              <li>Trust Center: AI 가드레일, 데이터 보안, DMP 위반의 통합 뷰 제공</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- ACT 3 -->
+        <div class="tl-item">
+          <div class="tl-speaker">🌐 Christian Kleinerman — EVP of Product</div>
+          <div class="tl-title">Act 3: 개방성 & 상호운용성 — 사일로 없는 세계</div>
+          <div class="tl-time">1:14:15 – 1:28:15</div>
+          <ul class="tl-bullets">
+            <li><strong>Apache Iceberg V3</strong>: 가장 광범위한 구현. V4 스펙 개발 참여. 완전한 양방향 카탈로그 상호운용성 (Snowflake Horizon ↔ 외부 카탈로그).</li>
+            <li><strong>Snowflake Managed Iceberg Storage GA</strong> (AWS + Azure, GCP 예정): 벤더 종속 없음.</li>
+            <li>Apache Polaris Iceberg REST 카탈로그가 Horizon 카탈로그에 통합.</li>
+            <li><strong>Open Semantic Interchange</strong>: Snowflake가 창립해 시맨틱 레이어의 개방형 표준화를 추진.</li>
+            <li><strong>Data Re-sharing GA</strong>: 수신한 데이터를 제3자에게 자유롭게 재공유 가능.</li>
+            <li><strong>Open Sharing (Public Preview)</strong>: Iceberg REST로 비Snowflake 사용자와 데이터 공유.</li>
+            <li><strong>Multi-party Collaboration GA</strong>: 여러 조직이 하나의 안전한 환경에서 협업. Netflix가 얼리 어답터.</li>
+            <li><strong>SAP 제로카피 통합 GA</strong> (가장 많이 요청된 파트너 통합).</li>
+            <li>추가 제로카피: Workday Data Cloud, IBM Watsonx Data (DB2/메인프레임), AVEVA Connect (산업 데이터).</li>
+          </ul>
+          <div class="highlight-box yellow">
+            🟡 <strong>확장된 제로카피 파트너</strong> — SAP (GA), Workday, IBM Watsonx, AVEVA가 새로 추가되어 애플리케이션 데이터 사일로를 완전히 제거합니다.
+          </div>
+          <div class="customer-card">
+            <div class="customer-name">👟 Under Armour — Patrick Deroso, Chief Data & AI Officer (~1:27:00)</div>
+            <ul>
+              <li>7년간 Snowflake와 파트너십. "기념비"로서 Snowflake를 선택 — 종속 없음, 무한 확장</li>
+              <li>내부 에이전트 "Ada": 모든 팀원이 자연어로 데이터 쿼리 가능</li>
+              <li>Elementum(Snowflake 파트너)과 함께 AX(AI 기반 프로세스 전환) 구축. 최적화가 아닌 워크플로우 자체를 재설계</li>
+            </ul>
+          </div>
+          <div class="tl-quote">
+            "상호운용성에서 핵심은 비즈니스 파트너들이 기업 수준에서 데이터와 연동하고 싶은 애플리케이션을 갖고 있다는 것입니다."
+            <cite>— Patrick Deroso, Under Armour CDAO</cite>
+          </div>
+        </div>
+
+        <!-- ACT 4 -->
+        <div class="tl-item">
+          <div class="tl-speaker">🤖 Christian Kleinerman — EVP of Product</div>
+          <div class="tl-title">Act 4: 모두를 위한 CoWork — 모두의 제어 플레인</div>
+          <div class="tl-time">1:28:15 – 1:47:15</div>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">IT 시대 (보고서 요청 → 며칠 대기) → BI 시대 (데이터 민주화) → 현재: "유비쿼터스 인텔리전스" 시대. 모든 사람이 데이터 과학자의 역량을 갖게 됩니다.</p>
+          <ul class="tl-bullets">
+            <li><strong>Personal Work Engine</strong>: 더 이상 에이전트를 선택할 필요 없음. 개인 에이전트가 역할과 업무 맥락에서 멀티 에이전트 워크플로우를 조율.</li>
+            <li><strong>User Memory</strong>: 사용 패턴과 선호도를 학습하고 기억하여 미래 응답 품질을 지속적으로 향상.</li>
+            <li><strong>CoWork 예약 작업</strong>: "매주 월요일 오전 6시에 이 분석을 이메일로 보내줘" — 자연어로 설정.</li>
+            <li><strong>차세대 Artifacts</strong>: 라이브 데이터와 연결된 거버넌스 대시보드. CoCo로 빌드 → CoWork로 게시 및 공유.</li>
+            <li><strong>Cortex Sense (NEW)</strong>: 신호를 수집하고 컨텍스트를 풍부하게 하여 런타임에서 에이전트 정확도를 자동 향상. 정확도: <strong>24% → 83%</strong> (코딩 에이전트 평가 세트 기준).</li>
+            <li><strong>Natoma 인수</strong>: MCP를 통해 CoCo/CoWork를 100개 이상의 비즈니스 시스템과 연결.</li>
+          </ul>
+          <div class="customer-card">
+            <div class="customer-name">📱 Samsung Electronics — Jung Suh, VP Digital Commerce (~1:32:20)</div>
+            <ul>
+              <li>Galaxy S26 플래그십 출시 기간에 SIA(Shopper's Insight Action Agent) 운영. 팀 워크플로우: 수 시간 → 수 초</li>
+              <li>AX(AI 기반 프로세스 전환): AI가 프로세스의 중심에서 지속적으로 신호를 모니터링 → 자동으로 액션 제안 및 라우팅</li>
+              <li>임원·영업·마케팅 직원 1,000명이 매일 에이전트 사용 — 데이터 과학자가 단 한 명도 없습니다</li>
+            </ul>
+          </div>
+          <div class="tl-quote">
+            "데이터팀이 병목에서 벗어나 모든 리더가 자신만의 분석가로서 AX 모델에서 운영되는 전환 — 그것이 우리가 Snowflake에서 찾던 변화입니다."
+            <cite>— Jung Suh, Samsung Electronics</cite>
+          </div>
+          <div class="demo-box">
+            <div class="demo-box-label">🎬 Demo 3: CoWork Personal Work Agent (Dash Desai) — 1:41:40~1:48:39, 약 7분</div>
+            <ol>
+              <li>"오늘 하루를 시작해줘" → 이메일, Slack, 영업 데이터를 통합한 브리핑 즉시 생성</li>
+              <li>자동화: 매일 아침 6시에 이메일로 데일리 브리프 자동 발송 (데모에서 사전 구성됨)</li>
+              <li>VIP 급증 +45% 차트를 Artifact로 팀원들과 공유</li>
+              <li>Deep Research: 심층 분석을 위해 병렬로 서브 에이전트를 실행. 자동으로 상세 인사이트 보고서 생성</li>
+              <li>Cortex Sense: 서로 관련 없어 보이는 여러 Artifact에서 횡단적 인사이트 추출</li>
+              <li>Slack MCP: 분석 결과를 클릭 한 번으로 Slack에 직접 전송</li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="section">
+      <div class="section-label">지금 할 수 있는 액션</div>
+      <div class="section-title">조직에서 바로 시작할 수 있는 구체적인 단계</div>
+      <div class="section-subtitle">우선순위별로 정리한 실행 가이드</div>
+      <div class="action-grid">
+        <div class="action-card">
+          <span class="action-timing timing-now">지금 바로</span>
+          <p><strong>CoCo Desktop을 설치</strong>(현재 GA)하고 자연어로 파이프라인을 빌드·수정하는 경험을 해보세요. CLI, Snowsight, Desktop 중 워크플로우에 맞는 형태를 선택하면 됩니다. 파괴적 작업은 항상 사용자 승인이 필요하므로 안전하게 탐색할 수 있습니다.</p>
+        </div>
+        <div class="action-card">
+          <span class="action-timing timing-now">지금 바로</span>
+          <p><strong>Snowflake CoWork</strong>(구 Snowflake Intelligence)를 배포하여 조직 내 모든 사람이 개인 AI 어시스턴트를 갖도록 하세요. Personal Work Engine이 에이전트 선택을 없애고, Cortex Sense가 자동으로 정확도를 24% → 83%로 높여줍니다.</p>
+        </div>
+        <div class="action-card">
+          <span class="action-timing timing-soon">곧 시작</span>
+          <p>AI를 운영에 배포하기 전에 <strong>거버넌스를 먼저 구축</strong>하세요. 의도 기반 거버넌스(자연어로 정책), Agent Identity, Data Movement Policy를 결합하세요 — Thomson Reuters의 "거버넌스가 가속 장치" 모델을 따라하세요.</p>
+        </div>
+        <div class="action-card">
+          <span class="action-timing timing-soon">곧 시작</span>
+          <p>SAP, Workday, Salesforce와의 <strong>제로카피 통합</strong>을 평가하거나, Open Sharing (Iceberg REST)으로 비Snowflake 엔진에 데이터를 제공하세요. Snowflake Managed Iceberg Storage는 AWS와 Azure에서 현재 GA입니다.</p>
+        </div>
+        <div class="action-card">
+          <span class="action-timing timing-soon">곧 시작</span>
+          <p>Kafka를 사용 중이라면 <strong>Snowflake Data Stream</strong>(Kafka Wire 호환, 완전 관리형, 제로카피, 밀리초 미만 지연시간)으로 전환하는 비용 절감 가능성을 평가해 보세요. Private Preview 신청이 열려 있습니다.</p>
+        </div>
+        <div class="action-card">
+          <span class="action-timing timing-explore">탐색</span>
+          <p><strong>Samsung의 AX(AI 기반 프로세스 전환) 모델</strong>을 따라, 보고서 요청·승인·데이터 수집 등 기존 워크플로우 중 CoWork로 자동화·재설계할 수 있는 것을 찾아보세요. 이미 1,000명의 임원이 매일 검증한 모델입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>Snowflake Summit 2026 Day 2 플랫폼 키노트 요약 · 작성일: 2026년 6월</p>
+      <p style="margin-top:4px">영어 트랜스크립트 및 공개 자료를 기반으로 작성된 비공식 요약 자료입니다.</p>
+      <a class="yt-link" href="https://www.youtube.com/watch?v=NFTdHYp9uJo" target="_blank">
+        ▶ YouTube에서 전체 영상 보기
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
