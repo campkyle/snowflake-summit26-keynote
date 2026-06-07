@@ -1517,21 +1517,26 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
 
 <!-- ══ S16 CLOSING ══ -->
 <div class="slide" id="s16">
-  <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;
-    background:radial-gradient(ellipse at 40% 60%,#0d2550 0%,var(--bg) 65%);padding:clamp(24px,5vw,60px)">
-    <div style="max-width:min(680px,90%)">
-      <div class="eyebrow" style="justify-content:center;display:block;margin-bottom:24px">SNOWFLAKE SUMMIT 2026 · CLOSING</div>
-      <div style="font-size:clamp(16px,2.2vw,24px);color:var(--muted);font-style:italic;line-height:1.8;margin-bottom:32px">
-        "Snowflake는 여러분을<br>
-        <span style="color:var(--text);font-style:normal;font-weight:700">'할 수 있을까? (Can we?)'</span> 시대에서<br>
-        <span style="color:var(--blue);font-style:normal;font-weight:700">'이제 해볼까? (Shall we?)'</span> 시대로<br>
-        이끕니다."
+  <div class="pad" style="flex:1;display:flex;flex-direction:column;background:radial-gradient(ellipse at 30% 60%,#0d2550 0%,var(--bg) 65%)">
+    <div class="eyebrow" style="margin-bottom:clamp(12px,2vh,20px)">SNOWFLAKE SUMMIT 2026 · CLOSING</div>
+    <div class="g2" style="flex:1;min-height:0;align-items:center">
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.5vh,28px)">
+        <div style="font-size:clamp(16px,2.2vw,26px);color:var(--muted);font-style:italic;line-height:1.9">
+          "Snowflake는 여러분을<br>
+          <span style="color:var(--text);font-style:normal;font-weight:700">'할 수 있을까? (Can we?)'</span> 시대에서<br>
+          <span style="color:var(--blue);font-style:normal;font-weight:700">'이제 해볼까? (Shall we?)'</span> 시대로<br>
+          이끕니다."
+        </div>
+        <div style="font-size:clamp(12px,1.2vw,14px);color:var(--muted)">— Christian Kleinerman, EVP of Product, Snowflake</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <span class="kw" onclick="goTo('s01')">처음으로</span>
+          <span class="kw" onclick="goTo('s02')">목차로</span>
+        </div>
       </div>
-      <div style="font-size:clamp(12px,1.2vw,14px);color:var(--muted);margin-bottom:clamp(24px,4vh,40px)">— Christian Kleinerman, EVP of Product, Snowflake</div>
-      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
-        <span class="kw" onclick="goTo('s01')">처음으로</span>
-        <span class="kw" onclick="goTo('s02')">목차로</span>
-        <a class="kw gr" href="https://www.youtube.com/watch?v=NFTdHYp9uJo" target="_blank">▶ YouTube 원본</a>
+      <div style="position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.5)">
+        <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"
+          src="https://www.youtube.com/embed/NFTdHYp9uJo?start=5777&rel=0&modestbranding=1"
+          allowfullscreen></iframe>
       </div>
     </div>
   </div>
