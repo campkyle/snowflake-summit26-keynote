@@ -1280,7 +1280,55 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
         <li>Open Sharing과 결합 시 비Snowflake 파트너도 협업 가능</li>
       </ul>
       <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
-        <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/12_christian_act3_b.jpg" alt="Multi-party" class="slide-img">
+        <svg viewBox="0 0 560 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.3)">
+          <defs>
+            <marker id="mka" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto"><path d="M0,0 L0,8 L8,4z" fill="#29B5E8"/></marker>
+            <marker id="mkb" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M8,0 L8,8 L0,4z" fill="#29B5E8"/></marker>
+          </defs>
+          <!-- Concentric rings -->
+          <circle cx="280" cy="250" r="58"  fill="none" stroke="#29B5E8" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <circle cx="280" cy="250" r="95"  fill="none" stroke="#29B5E8" stroke-width="1.2" stroke-dasharray="6,4"/>
+          <circle cx="280" cy="250" r="132" fill="none" stroke="#29B5E8" stroke-width="1"   stroke-dasharray="6,4" opacity=".5"/>
+          <!-- Inner compass nodes -->
+          <circle cx="280" cy="192" r="6" fill="#fff" stroke="#29B5E8" stroke-width="2.5"/>
+          <circle cx="338" cy="250" r="6" fill="#fff" stroke="#29B5E8" stroke-width="2.5"/>
+          <circle cx="280" cy="308" r="6" fill="#fff" stroke="#29B5E8" stroke-width="2.5"/>
+          <circle cx="222" cy="250" r="6" fill="#fff" stroke="#29B5E8" stroke-width="2.5"/>
+          <!-- Snowflake center -->
+          <circle cx="280" cy="250" r="50" fill="#11577F"/>
+          <g stroke="#fff" stroke-width="4" stroke-linecap="round">
+            <line x1="280" y1="218" x2="280" y2="282"/>
+            <line x1="252" y1="234" x2="308" y2="266"/>
+            <line x1="252" y1="266" x2="308" y2="234"/>
+            <line x1="272" y1="224" x2="280" y2="229"/><line x1="288" y1="224" x2="280" y2="229"/>
+            <line x1="272" y1="271" x2="280" y2="276"/><line x1="288" y1="271" x2="280" y2="276"/>
+          </g>
+          <polygon points="280,238 288,250 280,262 272,250" fill="#29B5E8"/>
+          <!-- Connector lines (bidirectional) -->
+          <line x1="280" y1="107" x2="280" y2="189" stroke="#29B5E8" stroke-width="1.5" stroke-dasharray="6,3" marker-start="url(#mka)" marker-end="url(#mkb)"/>
+          <line x1="458" y1="250" x2="340" y2="250" stroke="#29B5E8" stroke-width="1.5" stroke-dasharray="6,3" marker-start="url(#mka)" marker-end="url(#mkb)"/>
+          <line x1="280" y1="393" x2="280" y2="311" stroke="#29B5E8" stroke-width="1.5" stroke-dasharray="6,3" marker-start="url(#mka)" marker-end="url(#mkb)"/>
+          <line x1="102"  y1="250" x2="220" y2="250" stroke="#29B5E8" stroke-width="1.5" stroke-dasharray="6,3" marker-start="url(#mka)" marker-end="url(#mkb)"/>
+          <!-- Publisher / Media Partner (TOP) -->
+          <circle cx="280" cy="68" r="15" fill="#29B5E8"/>
+          <path d="M262,107 A18,14 0 0,1 298,107" fill="#29B5E8"/>
+          <text x="280" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#11577F" font-family="Arial,sans-serif">Publisher /</text>
+          <text x="280" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#11577F" font-family="Arial,sans-serif">Media Partner</text>
+          <!-- Advertiser (RIGHT) -->
+          <circle cx="478" cy="233" r="15" fill="#29B5E8"/>
+          <path d="M460,270 A18,14 0 0,1 496,270" fill="#29B5E8"/>
+          <text x="497" y="238" text-anchor="start" font-size="12" font-weight="700" fill="#11577F" font-family="Arial,sans-serif">Advertiser</text>
+          <!-- Measurement Partner / Agency (BOTTOM) -->
+          <circle cx="280" cy="415" r="15" fill="#29B5E8"/>
+          <path d="M262,452 A18,14 0 0,1 298,452" fill="#29B5E8"/>
+          <text x="280" y="465" text-anchor="middle" font-size="12" font-weight="700" fill="#11577F" font-family="Arial,sans-serif">Measurement</text>
+          <text x="280" y="480" text-anchor="middle" font-size="11" font-weight="700" fill="#11577F" font-family="Arial,sans-serif">Partner / Agency</text>
+          <!-- Outcomes Data Provider (LEFT) -->
+          <circle cx="82" cy="233" r="15" fill="#29B5E8"/>
+          <path d="M64,270 A18,14 0 0,1 100,270" fill="#29B5E8"/>
+          <text x="79" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#11577F" font-family="Arial,sans-serif">Outcomes</text>
+          <text x="79" y="226" text-anchor="middle" font-size="11" font-weight="700" fill="#11577F" font-family="Arial,sans-serif">Data Provider</text>
+        </svg>
         <div class="ibox">
           <div class="ibox-t">GA 의미</div>
           <ul class="blist">
