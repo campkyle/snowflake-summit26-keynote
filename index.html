@@ -119,7 +119,39 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
 .pill.yl{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:var(--yellow)}
 .pill.pu{background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.25);color:var(--purple)}
 
-/* ── 영상 썸네일 ── */
+/* ── 클립 모달 ── */
+.clip-btn{
+  position:absolute;bottom:10px;right:12px;
+  background:rgba(41,181,232,.14);border:1px solid rgba(41,181,232,.4);
+  color:var(--blue);padding:6px 14px;border-radius:8px;cursor:pointer;
+  font-size:clamp(11px,1vw,13px);font-weight:700;transition:all .2s;z-index:10;
+  display:flex;align-items:center;gap:6px;
+}
+.clip-btn:hover{background:rgba(41,181,232,.28);transform:translateY(-1px)}
+#clip-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.78);
+  display:none;align-items:center;justify-content:center;
+  z-index:99999;padding:clamp(16px,3vw,40px);
+}
+#clip-modal.open{display:flex}
+#clip-wrap{
+  width:min(920px,92vw);background:var(--bg);
+  border-radius:14px;border:1px solid var(--border);
+  overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.7);
+}
+.clip-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;border-bottom:1px solid var(--border);
+  background:rgba(41,181,232,.05);
+}
+.clip-title{font-size:clamp(12px,1.2vw,14px);font-weight:700;color:var(--blue)}
+.clip-close{
+  background:none;border:none;color:var(--muted);font-size:20px;
+  cursor:pointer;line-height:1;padding:2px 6px;border-radius:4px;transition:color .15s;
+}
+.clip-close:hover{color:var(--text)}
+.clip-player{position:relative;padding-bottom:56.25%;background:#000}
+.clip-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 .vid-thumb{position:relative;cursor:pointer;border-radius:8px;overflow:hidden;background:#000;flex-shrink:0}
 .vid-thumb img{width:100%;display:block;transition:transform .3s}
 .vid-thumb:hover img{transform:scale(1.03)}
@@ -426,7 +458,7 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
       <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
         <div class="ibox">
           <div class="ibox-t">🎬 Demo 1: Snow Music (44:08~, 약 6분)</div>
-          <div class="vid-thumb" data-start="3702" style="margin-bottom:10px">
+          <div class="vid-thumb" data-start="1878" data-end="2221" style="margin-bottom:10px">
             <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="CoCo Desktop Demo">
             <div class="vid-play"><div class="vid-play-btn">▶</div></div>
             <div class="vid-label">▶ 44:08~ 재생</div>
@@ -503,7 +535,7 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
       <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
         <div class="ibox">
           <div class="ibox-t">🎬 Demo 2: 거버넌스 (1:09:13~, 약 5분)</div>
-          <div class="vid-thumb" data-start="5207" style="margin-bottom:10px">
+          <div class="vid-thumb" data-start="3383" data-end="3685" style="margin-bottom:10px">
             <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/05_caitlin_thomson_reuters.jpg" alt="Governance Demo">
             <div class="vid-play"><div class="vid-play-btn">▶</div></div>
             <div class="vid-label">▶ 1:09:13~ 재생</div>
@@ -638,7 +670,7 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
       <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
         <div class="ibox" style="border-color:rgba(129,140,248,.25)">
           <div class="ibox-t pu">🎬 Demo 3: CoWork Personal Work Agent (1:41:40~)</div>
-          <div class="vid-thumb" data-start="7154" style="margin-bottom:10px">
+          <div class="vid-thumb" data-start="5330" data-end="5749" style="margin-bottom:10px">
             <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/11_christian_cowork.jpg" alt="CoWork Demo">
             <div class="vid-play"><div class="vid-play-btn">▶</div></div>
             <div class="vid-label">▶ 1:41:40~ 재생</div>
@@ -895,7 +927,7 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
             <li>Iceberg 테이블과 직접 연동 가능</li>
           </ul>
         </div>
-        <div class="vid-thumb" data-start="3702"><img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="Data Stream Demo"><div class="vid-play"><div class="vid-play-btn">▶</div></div><div class="vid-label">▶ 발표 영상 보기</div></div>
+        <div class="vid-thumb" data-start="637" data-end="1878"><img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="Data Stream Demo"><div class="vid-play"><div class="vid-play-btn">▶</div></div><div class="vid-label">▶ 발표 영상 보기</div></div>
       </div>
     </div>
   </div>
@@ -1371,6 +1403,17 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
 </div><!-- /deck -->
 
 <!-- ── NAVBAR ── -->
+<!-- ── 클립 모달 ── -->
+<div id="clip-modal">
+  <div id="clip-wrap">
+    <div class="clip-header">
+      <span class="clip-title"></span>
+      <button class="clip-close" id="clip-close">✕</button>
+    </div>
+    <div class="clip-player" id="clip-player"></div>
+  </div>
+</div>
+
 <div id="navbar">
   <button class="nbtn" id="btn-prev" onclick="prevSlide()">← 이전</button>
   <div style="display:flex;align-items:center;gap:10px">
@@ -1423,13 +1466,72 @@ document.addEventListener('keydown',e=>{
 });
 ui();
 
+/* ── 클립 시스템 ── */
+const CLIPS={
+  s05:  {s:1878,e:2221,label:'🎬 Demo 1 · CoCo Desktop 라이브 데모 (약 6분)'},
+  s05a: {s:637, e:1878,label:'💻 Act 1 · CoCo 전체 발표 구간 (약 20분)'},
+  s05b: {s:637, e:1878,label:'📡 Act 1 · Snowflake Data Stream 포함 (약 20분)'},
+  s05c: {s:637, e:1878,label:'🖥️ Act 1 · App Runtime & Streamlit 포함 (약 20분)'},
+  s06:  {s:637, e:1878,label:'📸 Act 1 · Snap and Ask 포함 (약 20분)'},
+  s07:  {s:3383,e:3685,label:'🎬 Demo 2 · 거버넌스 라이브 데모 (약 5분)'},
+  s07a: {s:2644,e:3383,label:'🛡️ Thomson Reuters 파이어사이드 챗 + 거버넌스 발표 (약 12분)'},
+  s07b: {s:3383,e:3685,label:'🎬 Demo 2 · Data Movement Policy 시연 (약 5분)'},
+  s08:  {s:2230,e:3383,label:'🛡️ Act 2 · 거버넌스 & 보안 전체 발표 (약 19분)'},
+  s08a: {s:2230,e:2644,label:'⚡ Act 2 · Interactive Compiler & 성능 발표 (약 7분)'},
+  s09:  {s:3685,e:4450,label:'🌐 Act 3 · 개방성 & 상호운용성 전체 (약 13분)'},
+  s09a: {s:3685,e:4000,label:'🧊 Act 3 · Apache Iceberg V3 발표 구간 (약 5분)'},
+  s09b: {s:3685,e:4450,label:'🤝 Act 3 · SAP & 제로카피 파트너 발표 (약 13분)'},
+  s09c: {s:3685,e:4450,label:'🌐 Act 3 · Open Sharing & Re-sharing 발표 (약 13분)'},
+  s09d: {s:3685,e:4450,label:'🤝 Act 3 · Multi-party Collaboration 발표 (약 13분)'},
+  s10:  {s:5330,e:5749,label:'🎬 Demo 3 · CoWork Personal Work Agent (약 7분)'},
+  s10a: {s:5255,e:5749,label:'🤖 Act 4 · Personal Work Engine 발표 (약 8분)'},
+  s10b: {s:5330,e:5749,label:'🎬 Demo 3 · User Memory & Scheduled Tasks 시연 (약 7분)'},
+  s11:  {s:5255,e:5330,label:'✨ Cortex Sense 공식 발표 구간 (약 1분)'},
+  s11a: {s:5330,e:5749,label:'🎬 Demo 3 · Artifacts & Deep Research 시연 (약 7분)'},
+  s11b: {s:5330,e:5749,label:'🎬 Demo 3 · Natoma MCP · Slack 연동 시연 (약 7분)'},
+  s12:  {s:2644,e:2960,label:'🏛️ Thomson Reuters 파이어사이드 챗 (약 5분)'},
+  s13:  {s:4450,e:4770,label:'👟 Under Armour CDAO 무대 발표 (약 5분)'},
+  s14:  {s:4770,e:5255,label:'📱 Samsung Electronics 무대 발표 (약 8분)'},
+};
+
+Object.entries(CLIPS).forEach(([id,c])=>{
+  const el=document.getElementById(id);
+  if(!el)return;
+  const btn=document.createElement('button');
+  btn.className='clip-btn';
+  btn.textContent=c.label;
+  btn.onclick=()=>openClip(c.s,c.e,c.label);
+  el.style.position='relative';
+  el.appendChild(btn);
+});
+
+const modal=document.getElementById('clip-modal');
+const clipPlayer=document.getElementById('clip-player');
+const clipTitle=document.querySelector('.clip-title');
+function openClip(s,e,label){
+  clipTitle.textContent=label;
+  clipPlayer.innerHTML=`<iframe src="https://www.youtube.com/embed/NFTdHYp9uJo?start=${s}&end=${e}&autoplay=1&rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media" allowfullscreen></iframe>`;
+  modal.classList.add('open');
+}
+document.getElementById('clip-close').onclick=closeClip;
+modal.addEventListener('click',e=>{if(e.target===modal)closeClip()});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeClip();
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')nextSlide();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevSlide();
+  if(e.key==='Home')goTo('s01');
+  if(e.key==='End')goTo(ORDER[ORDER.length-1]);
+});
+function closeClip(){modal.classList.remove('open');clipPlayer.innerHTML='';}
+
 document.querySelectorAll('.vid-thumb').forEach(el=>{
   el.addEventListener('click',function(){
     const start=this.dataset.start||'0';
+    const end=this.dataset.end||'';
     const wrap=document.createElement('div');
     wrap.style.cssText='position:relative;padding-bottom:56.25%;border-radius:8px;overflow:hidden;background:#000;margin-bottom:10px;flex-shrink:0';
     const iframe=document.createElement('iframe');
-    iframe.src=`https://www.youtube.com/embed/NFTdHYp9uJo?start=${start}&autoplay=1&rel=0&modestbranding=1`;
+    iframe.src=`https://www.youtube.com/embed/NFTdHYp9uJo?start=${start}${end?'&end='+end:''}&autoplay=1&rel=0&modestbranding=1`;
     iframe.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border:0';
     iframe.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
     iframe.allowFullscreen=true;
