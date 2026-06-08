@@ -1636,16 +1636,7 @@ const CLIPS={
   s16:  {s:5006,e:5400,label:'🎤 Closing · "Shall we?" 마무리 발표 (약 7분)'},
 };
 
-Object.entries(CLIPS).forEach(([id,c])=>{
-  const el=document.getElementById(id);
-  if(!el)return;
-  const btn=document.createElement('button');
-  btn.className='clip-btn';
-  btn.textContent=c.label;
-  btn.onclick=()=>openClip(c.s,c.e,c.label);
-  el.style.position='relative';
-  el.appendChild(btn);
-});
+
 
 const modal=document.getElementById('clip-modal');
 const clipPlayer=document.getElementById('clip-player');
