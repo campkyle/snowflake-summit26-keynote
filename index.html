@@ -1087,6 +1087,84 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
   </div>
 </div>
 
+<!-- ══ S05d Visual Pipeline Editor ══ -->
+<div class="slide" id="s05d">
+  <div class="pad" style="flex:1;display:flex;flex-direction:column">
+    <button class="back" onclick="goTo('s04')">← 4막 개요</button>
+    <div class="eyebrow">ACT 1 · Data Engineering</div>
+    <div class="h2">Visual Pipeline Editor</div>
+    <div class="divline"></div>
+    <div class="g2">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:10px">🔧 드래그&amp;드롭 파이프라인 빌더 (Public Preview)</div>
+        <ul class="blist" style="margin-bottom:20px">
+          <li>코드 없이 <strong>시각적 DAG</strong>로 데이터 파이프라인 구성</li>
+          <li>Tasks, Dynamic Tables, Streams을 노드로 연결</li>
+          <li>실시간 <strong>상태 모니터링</strong> — 각 노드의 실행 성공/실패 시각화</li>
+          <li>기존 SQL·Python 로직은 그대로 유지, UI로 오케스트레이션만 추가</li>
+          <li>Snowsight 내 통합 — 별도 도구 없이 Snowflake 안에서 완결</li>
+        </ul>
+        <div style="font-size:14px;font-weight:700;color:var(--purple);margin-bottom:10px">🎯 핵심 가치</div>
+        <ul class="blist">
+          <li><strong>데이터 엔지니어</strong>: 복잡한 의존 관계를 한눈에 파악</li>
+          <li><strong>데이터 분석가</strong>: SQL 파이프라인을 코드 없이 구성·수정</li>
+          <li>Dynamic Tables와 결합 시 <strong>선언적 + 시각적</strong> 파이프라인 완성</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
+        <svg viewBox="0 0 480 220" xmlns="http://www.w3.org/2000/svg"
+          style="width:100%;max-height:clamp(140px,24vh,210px);background:#0d1b2a;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.4)">
+          <defs><marker id="pe" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7z" fill="#29B5E8"/></marker></defs>
+          <text x="240" y="18" text-anchor="middle" font-size="11" fill="#29B5E8" font-family="sans-serif" letter-spacing="1">Visual Pipeline Editor — DAG View</text>
+          <!-- Source -->
+          <rect x="16" y="80" width="80" height="36" rx="6" fill="rgba(41,181,232,.15)" stroke="#29B5E8" stroke-width="1.5"/>
+          <text x="56" y="95" text-anchor="middle" font-size="9" fill="#fff" font-family="sans-serif" font-weight="700">DATA</text>
+          <text x="56" y="109" text-anchor="middle" font-size="9" fill="#aac" font-family="sans-serif">Source</text>
+          <!-- Arrow 1 -->
+          <line x1="96" y1="98" x2="124" y2="98" stroke="#29B5E8" stroke-width="1.5" marker-end="url(#pe)"/>
+          <!-- Stream -->
+          <rect x="126" y="80" width="80" height="36" rx="6" fill="rgba(41,181,232,.15)" stroke="#29B5E8" stroke-width="1.5"/>
+          <text x="166" y="95" text-anchor="middle" font-size="9" fill="#fff" font-family="sans-serif" font-weight="700">STREAM</text>
+          <text x="166" y="109" text-anchor="middle" font-size="9" fill="#aac" font-family="sans-serif">CDC</text>
+          <!-- Arrow 2 -->
+          <line x1="206" y1="98" x2="234" y2="98" stroke="#29B5E8" stroke-width="1.5" marker-end="url(#pe)"/>
+          <!-- Dynamic Table -->
+          <rect x="236" y="80" width="88" height="36" rx="6" fill="rgba(17,87,127,.6)" stroke="#11577F" stroke-width="1.5"/>
+          <text x="280" y="95" text-anchor="middle" font-size="9" fill="#29B5E8" font-family="sans-serif" font-weight="700">DYNAMIC</text>
+          <text x="280" y="109" text-anchor="middle" font-size="9" fill="#29B5E8" font-family="sans-serif" font-weight="700">TABLE</text>
+          <!-- Arrow 3a -->
+          <line x1="324" y1="88" x2="358" y2="68" stroke="#29B5E8" stroke-width="1.5" marker-end="url(#pe)"/>
+          <!-- Arrow 3b -->
+          <line x1="324" y1="108" x2="358" y2="148" stroke="#29B5E8" stroke-width="1.5" marker-end="url(#pe)"/>
+          <!-- Task A -->
+          <rect x="360" y="48" width="88" height="36" rx="6" fill="rgba(101,74,179,.3)" stroke="#a78bfa" stroke-width="1.5"/>
+          <text x="404" y="63" text-anchor="middle" font-size="9" fill="#a78bfa" font-family="sans-serif" font-weight="700">TASK A</text>
+          <text x="404" y="77" text-anchor="middle" font-size="8" fill="#aac" font-family="sans-serif">ML Scoring</text>
+          <!-- Task B -->
+          <rect x="360" y="128" width="88" height="36" rx="6" fill="rgba(101,74,179,.3)" stroke="#a78bfa" stroke-width="1.5"/>
+          <text x="404" y="143" text-anchor="middle" font-size="9" fill="#a78bfa" font-family="sans-serif" font-weight="700">TASK B</text>
+          <text x="404" y="157" text-anchor="middle" font-size="8" fill="#aac" font-family="sans-serif">Dashboard</text>
+          <!-- status dots -->
+          <circle cx="440" cy="66" r="5" fill="#22c55e"/>
+          <circle cx="440" cy="146" r="5" fill="#22c55e"/>
+          <circle cx="100" cy="98" r="5" fill="#22c55e"/>
+          <circle cx="210" cy="98" r="5" fill="#f59e0b"/>
+          <text x="240" y="200" text-anchor="middle" font-size="9" fill="#556" font-family="sans-serif">● 실행 중  ● 완료  ● 대기</text>
+        </svg>
+        <div class="ibox">
+          <div class="ibox-t">현재 상태</div>
+          <ul class="blist">
+            <li>상태: <strong>Public Preview</strong></li>
+            <li>Snowsight에서 파이프라인 탭으로 접근</li>
+            <li>Task Tree / Dynamic Table 그래프 통합 뷰 제공</li>
+          </ul>
+        </div>
+        <div class="vid-thumb" data-start="979" data-end="1296"><img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="Visual Pipeline Editor Demo"><div class="vid-play"><div class="vid-play-btn">▶</div></div><div class="vid-label">▶ 29:09~ 재생</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ S07a Intent Governance ══ -->
 <div class="slide" id="s07a">
   <div class="pad" style="flex:1;display:flex;flex-direction:column">
@@ -1594,7 +1672,7 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
 </div>
 
 <script>
-const ORDER=['s01','s02','s03','s04','s05','s05a','s05b','s05c','s06','s07','s07a','s07b','s08','s08a','s09','s09a','s09b','s09c','s09d','s10','s10a','s10b','s11','s11a','s11b','s12','s13','s14','s15','s16','skt'];
+const ORDER=['s01','s02','s03','s04','s05','s05a','s05b','s05c','s05d','s06','s07','s07a','s07b','s08','s08a','s09','s09a','s09b','s09c','s09d','s10','s10a','s10b','s11','s11a','s11b','s12','s13','s14','s15','s16','skt'];
 let cur=0,busy=false;
 
 function idx(id){return ORDER.indexOf(id)}
