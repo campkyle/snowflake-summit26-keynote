@@ -546,11 +546,11 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
       </div>
       <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
         <div class="ibox">
-          <div class="ibox-t">🎬 Demo 1: Snow Music (44:08~, 약 6분)</div>
-          <div class="vid-thumb" data-start="1878" data-end="2221" style="margin-bottom:10px">
+          <div class="ibox-t">🎬 Demo 1: Snow Music (16:33~, 약 6분)</div>
+          <div class="vid-thumb" data-start="223" data-end="2221" style="margin-bottom:10px">
             <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="CoCo Desktop Demo">
             <div class="vid-play"><div class="vid-play-btn">▶</div></div>
-            <div class="vid-label">▶ 44:08~ 재생</div>
+            <div class="vid-label">▶ 16:33~ 재생</div>
           </div>
           <ol class="dsteps">
             <li>CoCo Desktop이 스트리밍 앱 파이프라인 장애를 자연어로 진단 (누락된 device_type 컬럼)</li>
@@ -1007,7 +1007,35 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
         <li>Demo 1(Snow Music)에서 실제 시연: 라이브 스트리밍 앱에서 데이터 소스로 활용</li>
       </ul>
       <div style="display:flex;flex-direction:column;gap:clamp(10px,1.8vh,16px)">
-        <img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="Data Stream" class="slide-img">
+        <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg"
+          style="width:100%;max-height:clamp(130px,22vh,200px);background:#0d1b2a;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.4)">
+          <text x="260" y="18" text-anchor="middle" font-size="11" fill="#29B5E8" font-family="sans-serif" letter-spacing="1">Kafka-Compatible, Native to Snowflake</text>
+          <!-- EVENT box -->
+          <rect x="14" y="60" width="90" height="76" rx="6" fill="none" stroke="#29B5E8" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="59" y="84" text-anchor="middle" font-size="10" fill="#fff" font-family="sans-serif" font-weight="700">EVENT</text>
+          <text x="59" y="98" text-anchor="middle" font-size="9" fill="#aac" font-family="sans-serif">App / IoT / Web</text>
+          <text x="59" y="152" text-anchor="middle" font-size="8" fill="#667" font-family="sans-serif">DATA SOURCE</text>
+          <!-- Arrow left→center -->
+          <line x1="104" y1="98" x2="148" y2="98" stroke="#29B5E8" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- DATASTREAM circle -->
+          <circle cx="204" cy="98" r="48" fill="#b8eeff" opacity=".15" stroke="#29B5E8" stroke-width="1.5"/>
+          <circle cx="204" cy="98" r="36" fill="#b8eeff" opacity=".18"/>
+          <text x="204" y="94" text-anchor="middle" font-size="11" fill="#0d1b2a" font-family="sans-serif" font-weight="800">DATA</text>
+          <text x="204" y="108" text-anchor="middle" font-size="11" fill="#0d1b2a" font-family="sans-serif" font-weight="800">STREAM</text>
+          <!-- Arrow center→top right -->
+          <line x1="250" y1="80" x2="302" y2="62" stroke="#29B5E8" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- Arrow center→bottom right -->
+          <line x1="250" y1="116" x2="302" y2="134" stroke="#29B5E8" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- ICEBERG box -->
+          <rect x="304" y="42" width="110" height="36" rx="5" fill="rgba(41,181,232,.12)" stroke="#29B5E8" stroke-width="1"/>
+          <text x="359" y="56" text-anchor="middle" font-size="9.5" fill="#29B5E8" font-family="sans-serif" font-weight="700">ICEBERG</text>
+          <text x="359" y="70" text-anchor="middle" font-size="9.5" fill="#29B5E8" font-family="sans-serif" font-weight="700">TABLES</text>
+          <!-- SNOWFLAKE box -->
+          <rect x="304" y="118" width="110" height="36" rx="5" fill="rgba(41,181,232,.12)" stroke="#29B5E8" stroke-width="1"/>
+          <text x="359" y="132" text-anchor="middle" font-size="9.5" fill="#29B5E8" font-family="sans-serif" font-weight="700">SNOWFLAKE</text>
+          <text x="359" y="146" text-anchor="middle" font-size="9.5" fill="#29B5E8" font-family="sans-serif" font-weight="700">TABLES</text>
+          <defs><marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7z" fill="#29B5E8"/></marker></defs>
+        </svg>
         <div class="ibox">
           <div class="ibox-t">현재 상태</div>
           <ul class="blist">
@@ -1016,7 +1044,7 @@ html,body{width:100%;height:100%;background:var(--bg);overflow:hidden;
             <li>Iceberg 테이블과 직접 연동 가능</li>
           </ul>
         </div>
-        <div class="vid-thumb" data-start="637" data-end="1878"><img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="Data Stream Demo"><div class="vid-play"><div class="vid-play-btn">▶</div></div><div class="vid-label">▶ 발표 영상 보기</div></div>
+        <div class="vid-thumb" data-start="526" data-end="1878"><img src="https://snowflake-summit27-platformkeynote-en.netlify.app/screenshots/platform/03_data_stream.jpg" alt="Data Stream Demo"><div class="vid-play"><div class="vid-play-btn">▶</div></div><div class="vid-label">▶ 21:36~ 재생</div></div>
       </div>
     </div>
   </div>
